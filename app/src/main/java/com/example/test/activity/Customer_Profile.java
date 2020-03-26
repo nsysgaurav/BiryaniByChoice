@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -6,14 +6,12 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.test.OrderCart.Myorders;
-import com.facebook.shimmer.ShimmerFrameLayout;
+import com.example.test.R;
 
 public class Customer_Profile extends AppCompatActivity {
 TextView name ,review ,pohto;

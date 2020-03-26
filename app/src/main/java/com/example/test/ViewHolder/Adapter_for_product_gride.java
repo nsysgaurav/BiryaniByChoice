@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,11 +53,15 @@ public class Adapter_for_product_gride extends RecyclerView.Adapter<Adapter_for_
 
     ArrayList<HashMap<String,String>> cat_list_product_details;
 
-    public Adapter_for_product_gride(Context context, ArrayList<HashMap<String,String>> cat_list_product_details)
+    public Adapter_for_product_gride(Context context, ArrayList<HashMap<String,String>> cat_list_product_details,TextView cart_amout, TextView items_total,LinearLayout bottomsheet)
     {
         this.context = context;
          myDatabse=new MyDatabse(context);
         data_base = new DatabaseHelper(context);
+        this.cart_amout = cart_amout;
+        this.items_total = items_total;
+        this.bottom_sheet_layout=bottomsheet;
+
         this.cat_list_product_details = cat_list_product_details;
     }
 
@@ -74,7 +80,8 @@ public class Adapter_for_product_gride extends RecyclerView.Adapter<Adapter_for_
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position)
     {
-        String id = cat_list_product_details.get(position).get("id");
+        final int[] quintity = {0};
+        final String id = cat_list_product_details.get(position).get("id");
         String type = cat_list_product_details.get(position).get("type");
         final String name = cat_list_product_details.get(position).get("name");
         String slug = cat_list_product_details.get(position).get("slug");
@@ -84,13 +91,26 @@ public class Adapter_for_product_gride extends RecyclerView.Adapter<Adapter_for_
         String in_stock = cat_list_product_details.get(position).get("in_stock");
         final String price = cat_list_product_details.get(position).get("price");
 
-        holder.food_desc.setText(description);
-        holder.food_name.setText(name);
-        holder.food_price.setText(price);
 
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
+       // holder.food_desc.setText(description);
+        holder.food_name.setText(name);
+        holder.food_price.setText(Integer.toString((int)Double.parseDouble(price)));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        {
+            holder. food_desc.setText(Html.fromHtml(description, Html.FROM_HTML_MODE_COMPACT));
+        }
+        else
+            {
+            holder. food_desc.setText(Html.fromHtml(description));
+        }
+
+        holder.imageView.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+                //debug issue by Lalit kumar at 20.march.2020 1:30 PM when user click any item then application crashed
                 Intent i = new Intent(context, ItemDetails.class);
                 i.putExtra("name",name);
                 i.putExtra("desc",description);
@@ -106,6 +126,126 @@ public class Adapter_for_product_gride extends RecyclerView.Adapter<Adapter_for_
         else {
             holder.cat_icon_image.setImageResource(R.drawable.nonveg);
         }
+
+        holder.add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                        quintity[0]=quintity[0]+1;
+                        holder.counter_text.setText(String.valueOf(quintity[0]));
+
+                        long result = data_base.save_cart_value(id,
+                                name,description,"",
+                                price,String.valueOf(quintity[0]));
+
+
+                        if(result>0)
+                        {
+                            String amount =  data_base.get_the_total_amount();
+                            String quantity = data_base. get_the_total_quantity();
+                            cart_amout.setText("₹"+amount);
+                            if(quantity!=null)
+                            {
+                                items_total.setText(""+quantity+" Item");
+                            }
+
+                        }
+                        bottom_sheet_layout.setVisibility(View.VISIBLE);
+                    //    recyclerView.setPadding(0,0,0,120);
+
+                        holder.linearLayout_btn.setVisibility(View.INVISIBLE);
+                        holder.linearLayout.setVisibility(View.VISIBLE);
+
+            }
+
+        });
+
+
+
+
+        holder.add_counter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                        quintity[0]=quintity[0]+1;
+                        holder.counter_text.setText(String.valueOf(quintity[0]));
+                long result = data_base.save_cart_value(id,
+                        name,description,"",
+                        price,String.valueOf(quintity[0]));
+
+
+                if(result>0)
+                        {
+                            String amount =  data_base.get_the_total_amount();
+                            String quantity = data_base. get_the_total_quantity();
+                            cart_amout.setText("₹"+amount);
+                            if(quantity!=null)
+                            {
+                                items_total.setText(""+quantity+" Item");
+                            }
+
+                        }
+                     //   add_new_serv_layout.setVisibility(View.INVISIBLE);
+                        bottom_sheet_layout.setVisibility(View.VISIBLE);
+
+                    }
+
+                // Log.e("Result _Add",quintity[0]+"");
+
+                //     long result =   data_base.save_cart_value(food_list.get(position).getFood_id(),  food_list.get(position).getFoodName(),food_list.get(position).getFoodDes(),"image",String.valueOf(food_list.get(position).getFoodPrice()),Integer.toString(food_list.get(position).getQuantity()));
+
+
+
+        });
+        holder.min_counter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(quintity[0]>0)
+                {
+                    quintity[0]=quintity[0]-1;
+                    holder.counter_text.setText(String.valueOf(quintity[0]));
+                    long result = data_base.save_cart_value(id,
+                            name,description,"",
+                            price,String.valueOf(quintity[0]));
+
+                    if(result>0)
+                    {
+                        String amount =  data_base.get_the_total_amount();
+                        String quantity = data_base. get_the_total_quantity();
+                        cart_amout.setText("₹"+amount);
+                        if(quantity!=null)
+                        {
+                            items_total.setText(""+quantity+" Item");
+                        }
+                        Log.e("Result_amount",amount+"");
+                    }else {
+                        bottom_sheet_layout.setVisibility(View.INVISIBLE);
+                    }
+                }
+                else
+                {
+                    if(data_base.get_the_total_quantity()!=null)
+                    {
+                        if (Integer.parseInt(data_base.get_the_total_quantity()) > 0)
+                        {
+                            bottom_sheet_layout.setVisibility(View.VISIBLE);
+                        }
+
+
+                    }
+                    else
+                    {
+                        holder.add_btn.setVisibility(View.VISIBLE);
+                        holder.linearLayout_btn.setVisibility(View.VISIBLE);
+                        holder.linearLayout.setVisibility(View.INVISIBLE);
+                        bottom_sheet_layout.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+                //Log.e("Result Sub",quintity[0]+"");
+            }
+        });
 
     }
 

@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.activity;
 
 import android.os.Bundle;
 
@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.test.BAckgrounddata.GetData;
 import com.example.test.Model.FoodModel;
+import com.example.test.R;
 import com.example.test.Sqldirectory.DatabaseHelper;
 import com.example.test.ViewHolder.NewCardAdapter;
 

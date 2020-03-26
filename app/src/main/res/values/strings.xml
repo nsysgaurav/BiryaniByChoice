@@ -8,4 +8,10 @@
     <string name="google_map_API_Key">AIzaSyBXsDpHSlOjNSxjClID0n3KkRSzpdhbOjU</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="BiryaniByChoice">BiryaniByChoice</string>
+
+    <string name="my_profile">Complete sign up</string>
+    <string name="complete_your_profile">Complete your profile</string>
+    <string name="user_profile">User Profile</string>
+
 </resources>

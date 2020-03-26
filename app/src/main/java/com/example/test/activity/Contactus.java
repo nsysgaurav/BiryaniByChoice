@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.example.test.R;
 
 public class Contactus extends AppCompatActivity {
 

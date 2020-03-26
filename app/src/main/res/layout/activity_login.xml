@@ -4,118 +4,195 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    tools:context=".activity.Login">
 
     <TextView
         style="@style/TextAppearance.AppCompat.Body2"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:gravity="center"
-        android:fontFamily="@font/raleway_bold"
-        android:textSize="18dp"
-        android:layout_marginTop="20dp"
-        android:text="Sign In"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:fontFamily="@font/raleway_bold"
+        android:gravity="center"
+        android:text="Sign In"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
     <LinearLayout
-        android:gravity="center"
         android:id="@+id/loginlinear"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
         android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
         android:padding="10sp">
 
         <ImageView
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+            android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_above="@+id/loginlinear"
-            android:src="@drawable/finallogo"
-            android:id="@+id/logo"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/finallogo" />
 
         <TextView
+            style="@style/TextAppearance.AppCompat.Body2"
 
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:gravity="center_vertical"
-            android:fontFamily="@font/railway_regular"
-            android:textSize="14dp"
-            android:layout_marginTop="20dp"
-            android:text="Registered Mobile No."
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:fontFamily="@font/railway_regular"
+            android:gravity="center_vertical"
+            android:text="Registered Mobile No."
+            android:textSize="14dp" />
 
 
         <LinearLayout
-            android:weightSum="5"
-            android:orientation="horizontal"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-
-            <EditText
-                android:focusable="false"
-                android:text="+91"
-                android:gravity="center"
-                android:layout_weight="1"
-
-                android:layout_marginLeft="30dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:textColorHint="@color/colorPrimary"
-                android:inputType="phone"
-               />
-
-
-        <EditText
-            android:layout_weight="4"
-            android:layout_marginRight="30dp"
-
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            android:textColorHint="@color/colorPrimary"
-            android:id="@+id/enter_mob"
-            android:inputType="phone"
-            android:hint="Mobile no"
-            android:drawableRight="@drawable/ic_cancel_black_24dp"/>
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:textSize="14dp"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:backgroundTint="@color/white"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:inputType="phone"
+                    android:text="+91"
+                    android:textColorHint="@color/colorPrimary" />
+
+                <View
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"></View>
+
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="3.5"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:gravity="center_vertical"
+                    android:textSize="14dp"
+                android:backgroundTint="@color/white"
+                android:maxLength="10"
+                android:id="@+id/enter_mob"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:hint="Mobile no"
+                android:inputType="phone"
+                android:textColorHint="@color/colorPrimary" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"></View>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight=".5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:id="@+id/clear_button"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+
+
+            <ImageView
+                android:background="@drawable/ic_cancel_black_24dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"></View>
+
+            </LinearLayout>
 
         </LinearLayout>
 
 
         <TextView
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:fontFamily="@font/railway_regular"
-            android:textSize="12dp"
-            android:text="Sign in with your mobile number."
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
 
+            android:layout_marginTop="5dp"
+            style="@style/TextAppearance.AppCompat.Body2"
+
+            android:id="@+id/textView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:layout_marginRight="30dp"
+            android:fontFamily="@font/railway_regular"
+            android:text="Sign in with your mobile number."
+            android:textSize="14dp" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="gone" />
 
 
         <EditText
+            android:id="@+id/enter_otp"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="200sp"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/colorPrimary"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            android:visibility="gone"
+            android:drawableRight="@drawable/ic_lock_black_24dp"
             android:hint="OTP"
-            android:id="@+id/enter_otp"
             android:inputType="numberPassword"
-            android:drawableRight="@drawable/ic_lock_black_24dp"/>
+            android:textColorHint="@color/colorPrimary"
+            android:visibility="gone" />
 
 
         <Button
-
+            style="@style/TextAppearance.AppCompat.Body2"
             android:id="@+id/login_btn"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
@@ -129,21 +206,41 @@
             android:textColor="@color/colorPrimaryDark"
             android:visibility="visible" />
 
-        <TextView
-            android:id="@+id/go_to_sign_up"
+        <LinearLayout
+            android:id="@+id/bottom_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="70dp"
             android:gravity="center"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:fontFamily="@font/railway_regular"
-            android:textSize="12dp"
+            android:orientation="horizontal">
 
-            android:text="Don't have an account? Sign Up"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="Don't have an account? "
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/go_to_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Sign Up"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+
 
     </LinearLayout>
-
-
 
 
 </RelativeLayout>

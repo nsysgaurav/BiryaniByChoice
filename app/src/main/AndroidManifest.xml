@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.test">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -8,17 +16,19 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="BiryaniByChoice"
+        android:label="@string/BiryaniByChoice"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        tools:replace="android:label"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity_otp_verify_registration"></activity>
-        <activity android:name=".Home_Screen" />
+        <activity android:name=".activity.Activity_otp_verify_registration"></activity>
+        <activity android:name=".activity.Home_Screen" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -26,15 +36,19 @@
 
         <activity android:name=".ManageAddresses.ManageAddresses" />
         <activity android:name=".OrderCart.Myorders" />
-        <activity android:name=".Customer_Profile" />
-        <activity android:name=".Signup" />
-        <activity android:name=".Login" />
+        <activity android:name=".activity.Customer_Profile" />
+        <activity android:name=".activity.Signup" />
+        <activity android:name=".activity.Login" />
         <activity android:name=".OrderCart.Cart" />
-        <activity android:name=".Contactus" />
-        <activity android:name=".Edit_Customer_Profile"/>
-        <activity android:name=".AboutUs" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".FlashScreen">
+        <activity android:name=".ManageAddresses.AddressList"/>
+        <activity android:name=".activity.Contactus" />
+        <activity android:name=".activity.Edit_Customer_Profile"/>
+        <activity android:name=".activity.AboutUs" />
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.UserProfile"/>
+        <activity android:name=".ItemDetails.ItemDetails"/>
+
+        <activity android:name=".activity.FlashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -144,10 +144,6 @@ bottom_sheet_view_cart_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
 
-
-
-
-
                 toolbar.setTitle(food_list.get(position).getFoodName());
                 firstprice.setText(String.valueOf(food_list.get(position).getFoodPrice()));
                 secondprice.setText(String.valueOf(food_list.get(position).getMedium_serving_price()));

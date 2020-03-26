@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.activity;
 
 
 import android.annotation.SuppressLint;
@@ -27,6 +27,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.test.BAckgrounddata.GetData;
 import com.example.test.Model.FoodModel;
+import com.example.test.R;
 import com.example.test.Sqldirectory.DatabaseHelper;
 import com.example.test.ViewHolder.ComboAdapter;
 import com.example.test.ViewHolder.NewCardAdapter;

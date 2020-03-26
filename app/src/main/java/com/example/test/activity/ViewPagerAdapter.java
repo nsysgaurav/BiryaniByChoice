@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

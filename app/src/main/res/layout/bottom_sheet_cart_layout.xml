@@ -81,6 +81,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/cart__product"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:textColor="#1B1A1A"

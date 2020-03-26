@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Contactus"
+    tools:context=".activity.Contactus"
     android:background="@drawable/carddd">
 
     <androidx.appcompat.widget.Toolbar

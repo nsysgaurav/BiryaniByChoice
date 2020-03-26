@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.example.test.R;
 
 
 public class Edit_Customer_Profile extends AppCompatActivity {

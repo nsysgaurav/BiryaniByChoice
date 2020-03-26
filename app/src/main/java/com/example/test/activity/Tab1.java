@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.activity;
 
 
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.test.BAckgrounddata.GetData;
 import com.example.test.Model.FoodModel;
+import com.example.test.R;
 import com.example.test.Sqldirectory.DatabaseHelper;
 import com.example.test.ViewHolder.NewCardAdapter;
 import java.util.ArrayList;
@@ -85,7 +86,7 @@ public class Tab1 extends Fragment {
             items_total.setText(""+quantity+" Item");
         }
 
-       recyclerView= view.findViewById(R.id.layout);
+       recyclerView = view.findViewById(R.id.layout);
 
        // recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(),2));

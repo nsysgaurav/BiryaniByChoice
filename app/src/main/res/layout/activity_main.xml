@@ -6,7 +6,7 @@
     android:id="@+id/coordinatorlayout"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:id="@+id/pulltorefresh"
     android:layout_width="match_parent"

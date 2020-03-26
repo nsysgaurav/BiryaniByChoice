@@ -1,6 +1,5 @@
 package com.example.test.Internet_connection;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -12,7 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.test.Home_Screen;
+import com.example.test.activity.Home_Screen;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -97,6 +96,7 @@ public class volley_for_get_category
                     public void onErrorResponse(VolleyError error)
                     {
                         // error
+                        Log.e("error",error.toString());
 
                     }
                 }
@@ -113,7 +113,7 @@ public class volley_for_get_category
         };
         postRequest.setShouldCache(false);
         postRequest.setRetryPolicy(new DefaultRetryPolicy(
-                5000,
+                50000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(postRequest);

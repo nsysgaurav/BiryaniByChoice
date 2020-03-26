@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.activity;
 
 
 import android.annotation.SuppressLint;
@@ -32,6 +32,7 @@ import com.example.test.BAckgrounddata.GetData;
 import com.example.test.Model.Book;
 import com.example.test.Model.FoodModel;
 import com.example.test.Model.NonVegBiryani;
+import com.example.test.R;
 import com.example.test.Sqldirectory.DatabaseHelper;
 import com.example.test.ViewHolder.BiryaniAdapter;
 import com.example.test.ViewHolder.ComboAdapter;

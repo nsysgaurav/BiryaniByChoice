@@ -1,11 +1,10 @@
-package com.example.test;
+package com.example.test.activity;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import android.content.Intent;
-
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,15 +12,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.test.BAckgrounddata.GetData;
 import com.example.test.Internet_connection.volley_for_get_category;
-import com.example.test.Model.FoodModel;
-import com.example.test.Sqldirectory.CartLitedb;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.example.test.R;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.CAMERA;
+
 public class FlashScreen extends AppCompatActivity {
 String url ="http://61.247.229.49:8082/biryaniweb/food";
     Button login ,signup;
@@ -39,28 +35,34 @@ String url ="http://61.247.229.49:8082/biryaniweb/food";
 
         if(ActivityCompat.checkSelfPermission(FlashScreen.this,ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
-            ActivityCompat.requestPermissions(FlashScreen.this, new String[]{ACCESS_FINE_LOCATION},1);
+            //ActivityCompat.requestPermissions(FlashScreen.this, new String[]{ACCESS_FINE_LOCATION},1);
+            ActivityCompat.shouldShowRequestPermissionRationale(FlashScreen.this,ACCESS_FINE_LOCATION);
         }
-
-
-
-        Handler handel = new Handler();
-        handel.postDelayed(new Runnable()
+        if(ActivityCompat.checkSelfPermission(FlashScreen.this,CAMERA)!=PackageManager.PERMISSION_GRANTED)
         {
+            ActivityCompat.requestPermissions(FlashScreen.this, new String[]{CAMERA},2);
+        }
+Handler handler=new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void run()
-            {
-               // startActivity(new Intent(FlashScreen.this,Home_Screen.class));
-               // finish();
-
-
-                get_cat();
-
-
+            public void run() {
+               //finish();
             }
-        },3000);
+        },5000);
+
+//if(ActivityCompat.checkSelfPermission(FlashScreen.this,ACCESS_FINE_LOCATION )==PackageManager.PERMISSION_GRANTED){
+    try {
+        get_cat();
+    }
+    catch (Exception e)
+    {
 
     }
+
+
+}
+//}
+
 
 
     public void get_cat()

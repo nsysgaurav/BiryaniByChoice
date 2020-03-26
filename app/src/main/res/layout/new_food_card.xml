@@ -9,7 +9,6 @@
     android:background="#fff"
     android:padding="5dp">
     <ImageView
-
         android:background="@drawable/biryaniimage"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -45,6 +44,7 @@
     </LinearLayout>
 
     <TextView
+        android:minHeight="65dp"
         android:layout_marginTop="2dp"
         android:textColor="#000"
         style="@style/TextAppearance.AppCompat.Body1"
@@ -57,8 +57,7 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/new_c_desc"
-        >
+        android:layout_below="@+id/new_c_desc">
         <TextView
             android:paddingLeft="10dp"
             android:textSize="14sp"
@@ -135,17 +134,17 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:layout_width="80dp"
-            android:layout_height="30sp"
-            >
+            android:layout_height="30sp">
 
             <Button
+                android:background="@drawable/loginbackground"
+
                 style="@style/TextAppearance.MaterialComponents.Body1"
-                android:background="@color/colorPrimaryDark"
                 android:outlineSpotShadowColor="@color/colorPrimaryDark"
                 android:outlineAmbientShadowColor="@color/colorPrimaryDark"
                 android:layout_weight="4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/new_c_add_btn"
                 android:text="Add"
                 android:textStyle="bold"/>

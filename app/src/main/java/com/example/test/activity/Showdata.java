@@ -1,9 +1,6 @@
-package com.example.test;
+package com.example.test.activity;
 
 import android.os.AsyncTask;
-import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.Model.Book;
 

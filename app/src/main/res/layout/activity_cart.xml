@@ -8,232 +8,46 @@
     tools:context=".OrderCart.Cart"
     android:background="#eceff1">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/task">
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:id="@+id/cartToolbar"
-            android:background="@color/colorPrimaryDark"/>
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/table_layout">
-            <TableRow
-                android:padding="10sp"
+
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:fontFamily="@font/raleway_bold"
-                    android:layout_weight="1"
-                    android:layout_column="1"
-                    android:textSize="20sp"
-                    android:text="Your Order"/>
-
-            </TableRow>
-
-        </TableLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5sp">
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Items"
-                android:textSize="15sp"
-                android:fontFamily="@font/raleway_bold"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="5sp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quantity"
-                android:textSize="15sp"
-                android:fontFamily="@font/raleway_bold"
-                android:layout_centerInParent="true"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:fontFamily="@font/raleway_bold"
-                android:text="Price"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="5sp"/>
+                android:orientation="vertical">
 
-        </RelativeLayout>
-    <androidx.recyclerview.widget.RecyclerView
+                <include layout="@layout/recipe_placeholder_item" />
+
+                <include layout="@layout/recipe_placeholder_item" />
+
+                <include layout="@layout/recipe_placeholder_item" />
+
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="200sp"
+        android:layout_height="wrap_content"
         android:id="@+id/cartview"
         android:layout_marginTop="5sp"
         android:padding="10sp"/>
-       <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:orientation="vertical"
-           android:padding="5sp">
 
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="Item(s) Total"
-
-                   />
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_alignParentRight="true"
-                   android:text="0"
-                   android:id="@+id/items_total"/>
-
-
-           </RelativeLayout>
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="GST"
-
-                   />
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_alignParentRight="true"
-                   android:text="0"
-                   android:id="@+id/taxes_charges_total"/>
-
-
-           </RelativeLayout>
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="Delievery charges"
-
-                   />
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_alignParentRight="true"
-                   android:text="0"
-                   android:id="@+id/delivery_charges"/>
-
-
-           </RelativeLayout>
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:id="@+id/donation_layout_id">
-               <TextView
-                   android:layout_width="200sp"
-                   android:layout_height="wrap_content"
-                   android:id="@+id/text_foundation"
-
-                   android:text="Donate ₹5 to FirstSecond Child Foundation"
-
-                   />
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_toRightOf="@+id/text_foundation"
-                   android:id="@+id/remove_donation"
-                   android:layout_marginLeft="5sp"
-                   android:textColor="#FF0000"
-                   android:text="remove"
-                   />
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_alignParentRight="true"
-                   android:text=" ₹5"
-                   android:id="@+id/donation_total"/>
-
-
-           </RelativeLayout>
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-
-                   android:text="Grand Total"
-                   android:textSize="20sp"
-                   android:fontFamily="@font/raleway_bold"
-
-                   />
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_alignParentRight="true"
-                   android:text="0"
-                   android:textSize="20sp"
-                   android:textColor="#39A73C"
-                   android:fontFamily="@font/raleway_bold"
-                   android:id="@+id/grand_total"/>
-
-
-           </RelativeLayout>
-
-       </LinearLayout>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/cart_cupponbtn"
-            android:layout_marginTop="50sp"
-            android:drawableLeft="@drawable/discount"
-            android:layout_margin="5sp"
-            android:background="@drawable/rippel_cupponbtn"
-            android:textColor="@color/promo"
-            android:fontFamily="@font/raleway_bold"
-            android:text="Apply Cuppon"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60sp"
-        android:layout_alignBottom="@+id/task"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.25"
-            android:text="PAYMENT METHOD"
-            android:textColor="@color/promo"
-            android:gravity="left"/>
-        <Button
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/placeorder"
-            android:text="Place Order"
-            android:background="@drawable/ripple_effect_button"
-            android:layout_weight="0.75"
-            android:drawableRight="@drawable/icc_keyboard_arrow_right_black_24dp"
-            android:layout_marginLeft="2sp"
-          android:fontFamily="@font/raleway_bold"
-            android:textColor="@android:color/white"/>
     </LinearLayout>
 
 </RelativeLayout>

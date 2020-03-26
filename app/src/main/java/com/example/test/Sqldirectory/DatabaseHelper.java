@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.test.Model.CartModal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -188,7 +189,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = null;
         String amount_total = null;
-        int total_amount = 0;
+        double total_amount = 0;
 
         Cursor cursor = null;
         try {
@@ -205,7 +206,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                      String amount =   cursor.getString(5);
                      String quantity =  cursor.getString(6);
 
-                            total_amount = total_amount+(Integer.parseInt(amount) * (Integer.parseInt(quantity)));
+                            total_amount = total_amount+(Double.parseDouble(amount) * (Integer.parseInt(quantity)));
 
                      Log.e("Amount"," "+amount+" "+quantity);
 
@@ -213,7 +214,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     } while (cursor.moveToNext());
                 }
             }
-            return Integer.toString(total_amount);
+            return Integer.toString((int)total_amount);
         }
         catch (Exception e)
         {
@@ -232,6 +233,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
     }
+
+
 
 
 
@@ -284,6 +287,60 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public ArrayList<HashMap<String,String>> get_the_cart_data()
+    {
+        SQLiteDatabase db = null;
+        String amount_total = null;
+        ArrayList<HashMap<String,String>> cat_list=new ArrayList<>();
+        HashMap<String,String> cat_list_hash;
+
+
+        Cursor cursor = null;
+        try {
+            db = this.getReadableDatabase();
+            String query = "select *" + " from " + RC_DETAILS_TABLE ;
+            cursor = db.rawQuery(query, null);
+            if (cursor != null) {
+
+                if (cursor.moveToFirst())
+                {
+                    do
+                    {
+                        cat_list_hash = new HashMap<>();
+                        cat_list_hash.clear();
+
+                        String product_id =   cursor.getString(1);
+                        String quantity =  cursor.getString(6);
+                        cat_list_hash.put("product_id",product_id);
+                        cat_list_hash.put("qty",quantity);
+
+                        cat_list.add(cat_list_hash);
+
+                        Log.e("product_id"," "+product_id+" "+quantity);
+
+                    }
+                    while (cursor.moveToNext());
+                }
+            }
+            return cat_list;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        finally
+        {
+            if (cursor != null && !cursor.isClosed())
+            {
+                cursor.close();
+            }
+            if (db != null)
+            {
+                db.close();
+            }
+        }
+    }
 
 
 

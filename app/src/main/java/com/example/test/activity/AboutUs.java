@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,6 +11,8 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.test.R;
 
 public class AboutUs extends AppCompatActivity {
 
