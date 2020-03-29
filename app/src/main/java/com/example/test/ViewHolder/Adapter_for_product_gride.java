@@ -61,7 +61,6 @@ public class Adapter_for_product_gride extends RecyclerView.Adapter<Adapter_for_
         this.cart_amout = cart_amout;
         this.items_total = items_total;
         this.bottom_sheet_layout=bottomsheet;
-
         this.cat_list_product_details = cat_list_product_details;
     }
 
@@ -81,6 +80,7 @@ public class Adapter_for_product_gride extends RecyclerView.Adapter<Adapter_for_
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position)
     {
         final int[] quintity = {0};
+        final String cat_id = cat_list_product_details.get(position).get("cat_id");
         final String id = cat_list_product_details.get(position).get("id");
         String type = cat_list_product_details.get(position).get("type");
         final String name = cat_list_product_details.get(position).get("name");
@@ -136,7 +136,7 @@ public class Adapter_for_product_gride extends RecyclerView.Adapter<Adapter_for_
 
                         long result = data_base.save_cart_value(id,
                                 name,description,"",
-                                price,String.valueOf(quintity[0]));
+                                price,String.valueOf(quintity[0]),cat_id,"");
 
 
                         if(result>0)
@@ -171,7 +171,7 @@ public class Adapter_for_product_gride extends RecyclerView.Adapter<Adapter_for_
                         holder.counter_text.setText(String.valueOf(quintity[0]));
                 long result = data_base.save_cart_value(id,
                         name,description,"",
-                        price,String.valueOf(quintity[0]));
+                        price,String.valueOf(quintity[0]),cat_id,"");
 
 
                 if(result>0)
@@ -197,41 +197,95 @@ public class Adapter_for_product_gride extends RecyclerView.Adapter<Adapter_for_
 
 
         });
-        holder.min_counter.setOnClickListener(new View.OnClickListener() {
+        holder.min_counter.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 if(quintity[0]>0)
                 {
                     quintity[0]=quintity[0]-1;
-                    holder.counter_text.setText(String.valueOf(quintity[0]));
-                    long result = data_base.save_cart_value(id,
-                            name,description,"",
-                            price,String.valueOf(quintity[0]));
 
-                    if(result>0)
+                    if(quintity[0]<=0)
                     {
-                        String amount =  data_base.get_the_total_amount();
-                        String quantity = data_base. get_the_total_quantity();
-                        cart_amout.setText("₹"+amount);
-                        if(quantity!=null)
+                        try
                         {
-                            items_total.setText(""+quantity+" Item");
-                        }
-                        Log.e("Result_amount",amount+"");
-                    }else {
-                        bottom_sheet_layout.setVisibility(View.INVISIBLE);
+                           int result= data_base.deleteItem(id);
+                           Log.e("isDeleted"," "+result);
+                            holder.add_btn.setVisibility(View.VISIBLE);
+                            holder.linearLayout_btn.setVisibility(View.VISIBLE);
+                            holder.linearLayout.setVisibility(View.INVISIBLE);
+
+
+
+                                String amount =  data_base.get_the_total_amount();
+                                String quantity = data_base. get_the_total_quantity();
+                                cart_amout.setText("₹"+amount);
+                                if(quantity!=null)
+                                {
+                                    items_total.setText(""+quantity+" Item");
+                                }
+                                Log.e("Result_amount",amount+"");
+
+
+
+
                     }
+                        catch (Exception e)
+                        {
+
+                        }
+
+                    }
+                    else
+                    {
+                        holder.counter_text.setText(String.valueOf(quintity[0]));
+                        long result = data_base.save_cart_value(id,
+                                name,description,"",
+                                price,String.valueOf(quintity[0]),cat_id,"");
+
+                        if(result>0)
+                        {
+                            String amount =  data_base.get_the_total_amount();
+                            String quantity = data_base. get_the_total_quantity();
+                            cart_amout.setText("₹"+amount);
+                            if(quantity!=null)
+                            {
+                                items_total.setText(""+quantity+" Item");
+                            }
+                            Log.e("Result_amount",amount+"");
+                        }
+                        else
+                        {
+                            bottom_sheet_layout.setVisibility(View.INVISIBLE);
+                        }
+                    }
+
+
+
                 }
                 else
                 {
+
+                    try
+                    {
+                        data_base.deleteItem(id);
+                        holder.add_btn.setVisibility(View.VISIBLE);
+                        holder.linearLayout_btn.setVisibility(View.VISIBLE);
+                        holder.linearLayout.setVisibility(View.INVISIBLE);
+
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+
                     if(data_base.get_the_total_quantity()!=null)
                     {
                         if (Integer.parseInt(data_base.get_the_total_quantity()) > 0)
                         {
                             bottom_sheet_layout.setVisibility(View.VISIBLE);
                         }
-
-
                     }
                     else
                     {

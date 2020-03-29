@@ -26,13 +26,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.test.ManageAddresses.AddressList;
 import com.example.test.ManageAddresses.ManageAddresses;
 import com.example.test.Model.UserDetails;
 import com.example.test.OrderCart.Cart;
 import com.example.test.R;
 import com.example.test.Sqldirectory.DatabaseHelper;
 import com.example.test.adapter.PlansPagerAdapter;
+import com.example.test.util.utility;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -78,7 +78,6 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
         intent = getIntent();
         if (intent != null)
         {
-
             try
             {
                 cat_list = (ArrayList<HashMap<String, String>>) intent.getSerializableExtra("All_cat_list");
@@ -110,6 +109,39 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
         PlansPagerAdapter adapter = new PlansPagerAdapter(getSupportFragmentManager(), tab.getTabCount(), tabTitle, cat_list,bottomsheet, cart_amout,items_total);
         viewPager.setAdapter(adapter);
         tab.setupWithViewPager(viewPager);
+
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        try {
+            if(databaseHelper.get_the_total_quantity()!=null)
+            {
+                if(Integer.parseInt(databaseHelper.get_the_total_quantity()) >0)
+                {
+                    bottomsheet.setVisibility(View.VISIBLE);
+                    String quintiy = databaseHelper.get_the_total_quantity();
+                    String amount=databaseHelper.get_the_total_amount();
+                    cart_amout.setText("₹"+amount);
+                    items_total.setText(""+quintiy+" Item");
+                }
+                else
+                {
+                    bottomsheet.setVisibility(View.GONE);
+                }
+
+            }
+
+        }
+        catch (Exception e)
+        {
+            bottomsheet.setVisibility(View.GONE);
+        }
+
+
 
     }
 
@@ -155,22 +187,31 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
         }
         //added above by Lalit kumar on 20.march.2020 at 17:58 PM
 
-        if(databaseHelper.get_the_total_quantity()!=null)
+        try
         {
-            if(Integer.parseInt(databaseHelper.get_the_total_quantity()) >0)
+            if(databaseHelper.get_the_total_quantity()!=null)
             {
-                bottomsheet.setVisibility(View.VISIBLE);
-                String quintiy=databaseHelper.get_the_total_quantity();
-                String amount=databaseHelper.get_the_total_amount();
-                cart_amout.setText("₹"+amount);
-                items_total.setText(""+quintiy+" Item");
-            }
-            else
-            {
-                bottomsheet.setVisibility(View.GONE);
+                if(Integer.parseInt(databaseHelper.get_the_total_quantity()) >0)
+                {
+                    bottomsheet.setVisibility(View.VISIBLE);
+                    String quintiy = databaseHelper.get_the_total_quantity();
+                    String amount=databaseHelper.get_the_total_amount();
+                    cart_amout.setText("₹"+amount);
+                    items_total.setText(""+quintiy+" Item");
+                }
+                else
+                {
+                    bottomsheet.setVisibility(View.GONE);
+                }
+
             }
 
         }
+        catch (Exception e)
+        {
+            bottomsheet.setVisibility(View.GONE);
+        }
+
 
        //methord for cart-->
         cart__product.setOnClickListener(new View.OnClickListener()
@@ -178,13 +219,15 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
             @Override
             public void onClick(View v)
             {
-                if (sessionManager.isLoggedIn())
+                if(utility.isOnline(Home_Screen.this)==true)
                 {
-                    Intent in = new Intent(Home_Screen.this,Cart.class);
-                    startActivity(in);
+                    if (sessionManager.isLoggedIn())
+                    {
+                        Intent in = new Intent(Home_Screen.this,Cart.class);
+                        startActivity(in);
 
-                }
-                else
+                    }
+                    else
                     {
 
                         Toast.makeText(Home_Screen.this,"kindly login first!",Toast.LENGTH_LONG).show();
@@ -192,6 +235,12 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
                         startActivity(in);
 
                     }
+                }
+                else
+                {
+                    Toast.makeText(Home_Screen.this,"kindly check your internet connection!",Toast.LENGTH_LONG).show();
+
+                }
 
 
 
@@ -227,7 +276,7 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
                 startActivity(intent1);
                 break;
             case R.id.address_book:
-                Intent i3 = new Intent(this, AddressList.class);
+                Intent i3 = new Intent(this, ManageAddresses.class);
                 onBackPressed();
                 startActivity(i3);
                 break;
@@ -236,8 +285,15 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
                 if (sessionManager.isLoggedIn()) {
                     nav_login.setTitle("Logout");
                     sessionManager.logoutUser();
+                    databaseHelper.delet_database();
+                    Intent in=new Intent(Home_Screen.this,Home_Screen.class);
+                    in.putExtra("All_cat_list",cat_list);
+                    startActivity(in);
+                    finish();
+                }
+                else
+                    {
 
-                } else {
                     nav_login.setTitle("Login");
                     Intent i4 = new Intent(this, Login.class);
                     onBackPressed();

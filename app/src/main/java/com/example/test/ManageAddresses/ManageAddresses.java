@@ -17,8 +17,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.test.R;
@@ -47,8 +45,6 @@ public class ManageAddresses extends FragmentActivity implements OnMapReadyCallb
     FusedLocationProviderClient fusedLocationProviderClient;
     TextView current_location;
     Toolbar toolbar;
-    EditText flat_house_no, landmark, state, pincode, city;
-    Button save_address;
     private static final int REQUEST_CODE = 101;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +52,6 @@ public class ManageAddresses extends FragmentActivity implements OnMapReadyCallb
         setContentView(R.layout.activity_manage_addresses);
         current_location=findViewById(R.id.current_location);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        flat_house_no=findViewById(R.id.houseno_flat_man_ad);
-        landmark=findViewById(R.id.landmark_man_ad);
-        state=findViewById(R.id.state_man_ad);
-        pincode=findViewById(R.id.pincode_man_ad);
-        city=findViewById(R.id.city_man_ad);
-        save_address=findViewById(R.id.save_add_btn_man_ad);
 
         toolbar=findViewById(R.id.manage_add_toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -72,7 +61,7 @@ public class ManageAddresses extends FragmentActivity implements OnMapReadyCallb
                 finish();
             }
         });
-        fetchLocation();
+       // fetchLocation();
     }
     private void fetchLocation() {
         if (ActivityCompat.checkSelfPermission(
@@ -130,7 +119,7 @@ public class ManageAddresses extends FragmentActivity implements OnMapReadyCallb
         switch (requestCode) {
             case REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    fetchLocation();
+                   // fetchLocation();
                 }
                 break;
         }

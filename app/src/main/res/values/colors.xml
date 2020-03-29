@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ThemeRed">#95181f</color>
-    <color name="ThemeYellow">#f49723</color>
+    <color name="ThemeYellow">#E0B043</color>
     <color name="colorPrimary">#95181f</color>
-    <color name="colorPrimaryDark">#f49723</color>
+    <color name="colorPrimaryDark">#E0B043</color>
     <color name="colorPrimary2">#efcd81</color>
     <color name="colorPrimaryDark2">#E0B043</color>
     <color name="placeholder_bg">#dddddd</color>
@@ -25,4 +25,7 @@
     <color name="red">#dd4f42</color>
     <color name="green">#0d9324</color>
     <color name="grey">#949799</color>
+    <color name="light_grey">#ECECEC</color>
+    <color name="light_grey_shadow">#F8F7F7</color>
+
 </resources>

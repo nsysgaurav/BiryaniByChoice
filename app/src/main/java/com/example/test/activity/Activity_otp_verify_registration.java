@@ -19,16 +19,24 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.test.Constants.Cons;
 import com.example.test.Internet_connection.volley_for_get_category;
+import com.example.test.Model.Cat_data;
 import com.example.test.Model.UserDetails;
+import com.example.test.OrderCart.Cart;
 import com.example.test.R;
+import com.example.test.Sqldirectory.DatabaseHelper;
+import com.example.test.ViewHolder.Cart_layoutAdapter;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,13 +48,16 @@ public class Activity_otp_verify_registration extends AppCompatActivity {
     TextView mob;
     String otpByUser, mobile_number, callFrom;
     ProgressBar progress_bar;
+    DatabaseHelper data_base;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp_verify_registration);
         mContext = Activity_otp_verify_registration.this;
+        data_base = new DatabaseHelper(this);
         getId();
     }
 
@@ -77,10 +88,14 @@ public class Activity_otp_verify_registration extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (callFrom.equalsIgnoreCase(Cons.call_from_register)) {
-                    if (otpByUser != null && otpByUser.length() == 6) {
+                if (callFrom.equalsIgnoreCase(Cons.call_from_register))
+                {
+                    if (otpByUser != null && otpByUser.length() == 6)
+                    {
                         verify_otp(mobile_number, otpByUser);
-                    } else {
+                    }
+                    else
+                        {
 
                         Toast.makeText(Activity_otp_verify_registration.this, "Please enter the valid otp", Toast.LENGTH_LONG).show();
                     }
@@ -240,6 +255,7 @@ public class Activity_otp_verify_registration extends AppCompatActivity {
                                             SessionManager sessionManager = new SessionManager(Activity_otp_verify_registration.this);
                                             sessionManager.createUserSession(userDetails);
 
+                                            save_the_data_to_cart(user_info.getString("id"));
                                             get_cat();
                                         }
 
@@ -299,8 +315,105 @@ public class Activity_otp_verify_registration extends AppCompatActivity {
     public void get_cat()
     {
         volley_for_get_category obj_cat=new volley_for_get_category();
-        obj_cat.get_all_category(Activity_otp_verify_registration.this);
+        obj_cat.get_all_category(Activity_otp_verify_registration.this,progress_bar);
 
     }
+
+
+
+    //methord for update the cart-->
+    public void  save_the_data_to_cart(String user_id)
+    {
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("uid",user_id);
+
+        Gson gson = new Gson();
+        String jsno_data = gson.toJson(hashMap);
+        Log.e("jsno_data",jsno_data.toString());
+        RequestQueue queue = Volley.newRequestQueue(Activity_otp_verify_registration.this);
+        String url = "http://3.6.27.167/api/get-cart";
+        JsonObjectRequest postRequest = null;
+        try {
+            postRequest = new JsonObjectRequest(Request.Method.POST,url, new JSONObject(jsno_data),
+                    new Response.Listener<JSONObject>()
+                    {
+                        @Override
+                        public void onResponse(JSONObject response)
+                        {
+                            Log.e("response",response.toString());
+                            if(response!=null)
+                            {
+                                try
+                                {
+                                    int status = response.getInt("status");
+                                    if(status == 200)
+                                    {
+                                        JSONObject object_data = response.getJSONObject("data");
+                                        JSONArray jsonArray = object_data.getJSONArray("cart_total");
+                                        for(int i=0;i<jsonArray.length();i++)
+                                        {
+                                            JSONObject object_artical = jsonArray.getJSONObject(i);
+                                            String product_id = object_artical.getString("product_id");
+                                            String quantity = object_artical.getString("quantity");
+                                            String amount = object_artical.getString("amount");
+                                            String product_amount = object_artical.getString("product_amount");
+                                            String product_name = object_artical.getString("product_name");
+                                         //   String product_cat_id = object_artical.getString("product_cat_id");
+
+                                            try
+                                            {
+                                                data_base.save_cart_value(product_id,product_name,"product_dec","image",product_amount,quantity,"",amount);
+
+                                            }
+                                            catch (Exception e)
+                                            {
+
+                                            }
+                                        }
+                                    }
+                                }
+                                catch (JSONException e)
+                                {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        }
+                    }, new Response.ErrorListener()
+            {
+                @Override
+                public void onErrorResponse(VolleyError error)
+                {
+                   // mShimmerViewContainer.stopShimmerAnimation();
+                    //mShimmerViewContainer.setVisibility(View.GONE);
+
+
+                    Log.e("error",error.toString());
+                }
+
+            }){
+                @Override
+                public String getBodyContentType()
+                {
+                    return "application/json";
+                }
+
+
+
+            };
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        postRequest.setShouldCache(false);
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(
+                50000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(postRequest);
+
+    }
+
 
 }

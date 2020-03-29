@@ -3,20 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.test">
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.camera.autofocus"
-        android:required="false" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -25,9 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:label"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".activity.Activity_otp_verify_registration"></activity>
+        android:usesCleartextTraffic="true"
+        tools:replace="android:label">
+        <activity android:name=".activity.Add_address_before_payment"></activity>
+        <activity android:name=".activity.Activity_otp_verify_registration" />
         <activity android:name=".activity.Home_Screen" />
 
         <meta-data
@@ -40,14 +33,12 @@
         <activity android:name=".activity.Signup" />
         <activity android:name=".activity.Login" />
         <activity android:name=".OrderCart.Cart" />
-        <activity android:name=".ManageAddresses.AddressList"/>
         <activity android:name=".activity.Contactus" />
-        <activity android:name=".activity.Edit_Customer_Profile"/>
+        <activity android:name=".activity.Edit_Customer_Profile" />
         <activity android:name=".activity.AboutUs" />
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.UserProfile"/>
-        <activity android:name=".ItemDetails.ItemDetails"/>
-
+        <activity android:name=".activity.UserProfile" />
+        <activity android:name=".ItemDetails.ItemDetails" />
         <activity android:name=".activity.FlashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

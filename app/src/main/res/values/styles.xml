@@ -2,8 +2,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+<!--
         <item name="android:font">@font/railway_regular</item>
         <item name="android:fontFamily">@font/railway_regular</item>
+-->
 
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>

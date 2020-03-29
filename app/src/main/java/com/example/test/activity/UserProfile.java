@@ -310,7 +310,7 @@ public class UserProfile extends AppCompatActivity {
     public void get_cat()
     {
         volley_for_get_category obj_cat=new volley_for_get_category();
-        obj_cat.get_all_category(UserProfile.this);
+        obj_cat.get_all_category(UserProfile.this,progressBar);
     }
 
 }

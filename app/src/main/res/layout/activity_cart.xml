@@ -1,53 +1,390 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".OrderCart.Cart"
-    android:background="#eceff1">
+    android:background="@color/light_grey_shadow">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/task">
+        android:layout_height="match_parent">
 
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_view_container"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:paddingBottom="100dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/task">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:visibility="visible"
+                android:id="@+id/shimmer_view_container"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:orientation="vertical">
 
-                <include layout="@layout/recipe_placeholder_item" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <include layout="@layout/recipe_placeholder_item" />
+                    <include layout="@layout/recipe_placeholder_item" />
 
-                <include layout="@layout/recipe_placeholder_item" />
+                    <include layout="@layout/recipe_placeholder_item" />
+
+                    <include layout="@layout/recipe_placeholder_item" />
+
+                    <include layout="@layout/recipe_placeholder_item" />
+
+                    <include layout="@layout/recipe_placeholder_item" />
+
+                    <include layout="@layout/recipe_placeholder_item" />
+                    <include layout="@layout/recipe_placeholder_item" />
+
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+            <LinearLayout
+                android:background="@color/white"
+
+                android:weightSum="4"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+
+                        android:background="@drawable/finallogo"
+                        android:layout_width="70dp"
+                        android:layout_height="45dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:fontFamily="@font/railway_regular"
+                        android:text="Biriyani by choice"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:textSize="11dp"
+                        android:fontFamily="@font/railway_regular"
+                        android:text="Lajpat nagar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/cartview"
+                android:layout_marginTop="5sp"
+                android:padding="10sp"/>
+
+            <View
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/light_grey"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></View>
+
+            <LinearLayout
+                android:background="@color/white"
+
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp">
+
+
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/invoice"
+                    android:layout_width="32dp"
+                    android:layout_height="30dp">
+
+                </ImageView>
+
+                <TextView
+                    android:textSize="12dp"
+                    android:paddingLeft="10dp"
+                    android:hint="Any restaurant request? We will try our best"
+                    android:gravity="center_vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent">
+
+
+                </TextView>
 
 
             </LinearLayout>
 
-        </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <LinearLayout
+
+                android:background="@color/white"
+
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp">
+
+
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/discount_coupne"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp">
+
+                </ImageView>
+
+                <TextView
+                    android:fontFamily="@font/railway_regular"
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/black"
+                    android:textAllCaps="true"
+                    android:textSize="12dp"
+                    android:paddingLeft="10dp"
+                    android:text="Apply coupon"
+                    android:gravity="center_vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent">
+
+
+                </TextView>
+
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/light_grey"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"></View>
+
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+
+                android:orientation="vertical"
+                android:minHeight="100dp"
+                android:background="@color/white"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:fontFamily="@font/railway_regular"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="14dp"
+                    android:textColor="@color/black"
+                    android:text="Bill Details"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"></TextView>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp">
+
+                    <TextView
+                        android:fontFamily="@font/railway_regular"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:text="Item Total"
+                        android:textSize="14sp"
+                        android:textStyle="normal"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+
+                    <TextView
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:paddingRight="15dp"
+                        android:gravity="center|right"
+                        android:id="@+id/total_amout_of_cart"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp">
+
+                    <TextView
+                        android:fontFamily="@font/railway_regular"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:text="Delivery Fee"
+                        android:textSize="14sp"
+                        android:textStyle="normal"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+
+                    <TextView
+                        android:textSize="14sp"
+
+                        android:textColor="@color/black"
+                        android:text="₹30"
+                        android:paddingRight="15dp"
+                        android:gravity="center|right"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:background="@color/light_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></View>
 
 
 
 
-        <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/cartview"
-        android:layout_marginTop="5sp"
-        android:padding="10sp"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp">
 
-    </LinearLayout>
+                    <TextView
+                        android:fontFamily="@font/railway_regular"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:text="Taxes and Charges"
+                        android:textSize="14sp"
+                        android:textStyle="normal"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
 
-</RelativeLayout>
+
+                    <TextView
+                        android:textSize="14sp"
+
+                        android:textColor="@color/black"
+                        android:text="₹10"
+                        android:paddingRight="15dp"
+                        android:gravity="center|right"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:background="@color/light_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></View>
+
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+
+                    <TextView
+                        android:fontFamily="@font/raleway_bold"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:text="To Pay"
+                        android:textSize="14sp"
+                        android:textStyle="normal"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+
+                    <TextView
+                        android:textSize="14sp"
+                        android:id="@+id/pay_to"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:paddingRight="15dp"
+                        android:gravity="center|right"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <include layout="@layout/pay_now_bottom_sheet"
+        android:visibility="visible"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

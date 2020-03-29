@@ -3,6 +3,8 @@ package com.example.test.Internet_connection;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -24,10 +26,11 @@ import java.util.Map;
 public class volley_for_get_category
 {
 
+
     ArrayList<HashMap<String,String>> cat_list=new ArrayList<>();
     HashMap<String,String> cat_list_hash;
 
-    public void get_all_category(final Context context)
+    public void get_all_category(final Context context, final ProgressBar progressBar)
     {
         RequestQueue queue = Volley.newRequestQueue(context.getApplicationContext());
 
@@ -38,6 +41,12 @@ public class volley_for_get_category
                     @Override
                     public void onResponse(String response)
                     {
+
+                        if (progressBar.isShown())
+                        {
+                            progressBar.setVisibility(View.GONE);
+                        }
+
                         // response
                         Log.e("Response", response);
 
@@ -95,6 +104,10 @@ public class volley_for_get_category
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
+                        if (progressBar.isShown())
+                        {
+                            progressBar.setVisibility(View.GONE);
+                        }
                         // error
                         Log.e("error",error.toString());
 

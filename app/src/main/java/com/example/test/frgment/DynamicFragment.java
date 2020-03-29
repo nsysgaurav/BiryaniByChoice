@@ -25,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.test.R;
 import com.example.test.ViewHolder.Adapter_for_product_gride;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +47,8 @@ public class DynamicFragment extends Fragment
     RecyclerView recyclerView;
     LinearLayout bottomsheet;
     TextView cart_amout,items_total;
+
+    private ShimmerFrameLayout mShimmerViewContainer;
 
 
     public DynamicFragment()
@@ -70,7 +73,7 @@ public class DynamicFragment extends Fragment
             String slug[] = getArguments().getString("id").split(",");
 
             Log.e("id--------------------->",getArguments().getString("id"));
-              get_all_product_list(getActivity(),slug[1]);
+              get_all_product_list(getActivity(),slug[1],slug[0]);
         }
         catch (Exception e)
         {
@@ -98,17 +101,20 @@ public class DynamicFragment extends Fragment
     {
         view = inflater.inflate(R.layout.fragment_tab1, container, false);
         recyclerView = view.findViewById(R.id.layout);
+        mShimmerViewContainer = (ShimmerFrameLayout)view.findViewById(R.id.shimmer_view_container);
+        mShimmerViewContainer.startShimmerAnimation();
+
         node = getArguments().getString("someValue");
 
         String slug[] = getArguments().getString("id").split(",");
 
-      //  Log.e("id--------------------->",getArguments().getString("id"));
+        Log.e("id--------------------->",getArguments().getString("id"));
 
         return view;
     }
 
 
-    public void get_all_product_list(final Context context, final String slug)
+    public void get_all_product_list(final Context context, final String slug,final String cat_id)
     {
         RequestQueue queue = Volley.newRequestQueue(context.getApplicationContext());
         String url = "http://3.6.27.167/api/category/cat-pro";
@@ -125,6 +131,9 @@ public class DynamicFragment extends Fragment
                         {
                             try
                             {
+
+                                mShimmerViewContainer.stopShimmerAnimation();
+                                mShimmerViewContainer.setVisibility(View.GONE);
 
                                 JSONObject object = new JSONObject(response.toString());
                                 int status = object.getInt("status");
@@ -146,6 +155,7 @@ public class DynamicFragment extends Fragment
                                         String in_stock = obj.getString("in_stock");
                                         String price = obj.getString("price");
 
+                                        product_setails_map.put("cat_id",cat_id);
                                         product_setails_map.put("id",id);
                                         product_setails_map.put("type",type);
                                         product_setails_map.put("name",name);
@@ -188,7 +198,8 @@ public class DynamicFragment extends Fragment
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        // error
+                        mShimmerViewContainer.stopShimmerAnimation();
+                        mShimmerViewContainer.setVisibility(View.GONE);
 
                     }
                 }

@@ -111,221 +111,221 @@ public class NewCardAdapter extends RecyclerView.Adapter<NewCardAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        final int[] quintity = {0};
-        holder.food_name.setText(food_list.get(position).getFoodName());
-        holder.food_price.setText(String.valueOf(food_list.get(position).getFoodPrice()));
-        holder.food_desc.setText(food_list.get(position).getFoodDes());
-        quintity[0] = food_list.get(position).getQuantity();
-
-
-
-
-
-bottom_sheet_view_cart_btn.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(view.getContext(), Cart.class);
-        context.startActivity(intent);
-
-
-    }
-});
-
-        if(food_list.get(position).getFoodCat().equals("veg"))
-        {
-            holder.cat_icon_image.setImageResource(R.drawable.veg);
-        }
-        else {
-                 holder.cat_icon_image.setImageResource(R.drawable.nonveg);
-        }
-
-        holder.add_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-
-                toolbar.setTitle(food_list.get(position).getFoodName());
-                firstprice.setText(String.valueOf(food_list.get(position).getFoodPrice()));
-                secondprice.setText(String.valueOf(food_list.get(position).getMedium_serving_price()));
-                thirdprice.setText(String.valueOf(food_list.get(position).getLarge_serving_price()));
-                dialog.show();
-
-                biryaniquantitybtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        quintity[0]=quintity[0]+1;
-                        holder.counter_text.setText(String.valueOf(quintity[0]));
-
-                        long result = data_base.save_cart_value(String.valueOf(food_list.get(position).getFoodid()),
-                                food_list.get(position).getFoodName(),food_list.get(position).getFoodDes(),food_list.get(position).getFood_imag_url(),
-                                String.valueOf(food_list.get(position).getFoodPrice()),String.valueOf(quintity[0]));
-
-
-                        if(result>0)
-                        {
-                            String amount =  data_base.get_the_total_amount();
-                            String quantity = data_base. get_the_total_quantity();
-                            cart_amout.setText("₹"+amount);
-                            if(quantity!=null)
-                            {
-                                items_total.setText(""+quantity+" Item");
-                            }
-
-                        }
-                            bottom_sheet_layout.setVisibility(View.VISIBLE);
-                            recyclerView.setPadding(0,0,0,120);
-
-                            holder.linearLayout_btn.setVisibility(View.INVISIBLE);
-                            holder.linearLayout.setVisibility(View.VISIBLE);
-
-
-                            dialog.dismiss();
-
-                        }
-
-
-                });
-
-
-
-            }
-        });
-
-
-
-
-        holder.add_counter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                add_new_serv_name.setText(food_list.get(position).getFoodName());
-               add_new_serving_size.setText("serving 1");
-
-                if(quintity[0]>0)
-                {
-                    add_new_serv_layout.setVisibility(View.VISIBLE);
-                    bottom_sheet_layout.setVisibility(View.INVISIBLE);
-
-                }
-                close_new_serv_layout_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        add_new_serv_layout.setVisibility(View.INVISIBLE);
-                    }
-                });
-               add_new_serv_btn.setOnClickListener(new View.OnClickListener() {
-                   @Override
-                   public void onClick(View v) {
-                       dialog.show();
-                       add_new_serv_layout.setVisibility(View.INVISIBLE);
-
-                   }
-               });
-                repeat_last_serv_btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        quintity[0]=quintity[0]+1;
-                        holder.counter_text.setText(String.valueOf(quintity[0]));
-                        long result = data_base.save_cart_value(String.valueOf(food_list.get(position).getFoodid()),
-                                food_list.get(position).getFoodName(),food_list.get(position).getFoodDes(),"image",
-                                String.valueOf(food_list.get(position).getFoodPrice()),String.valueOf(quintity[0]));
-
-
-                        if(result>0)
-                        {
-                            String amount =  data_base.get_the_total_amount();
-                            String quantity = data_base. get_the_total_quantity();
-                            cart_amout.setText("₹"+amount);
-                            if(quantity!=null)
-                            {
-                                items_total.setText(""+quantity+" Item");
-                            }
-
-                        }
-                        add_new_serv_layout.setVisibility(View.INVISIBLE);
-                        bottom_sheet_layout.setVisibility(View.VISIBLE);
-
-                    }
-                });
-
-
-
-
-
-
-               // Log.e("Result _Add",quintity[0]+"");
-
-                //     long result =   data_base.save_cart_value(food_list.get(position).getFood_id(),  food_list.get(position).getFoodName(),food_list.get(position).getFoodDes(),"image",String.valueOf(food_list.get(position).getFoodPrice()),Integer.toString(food_list.get(position).getQuantity()));
-
-
-            }
-        });
-        holder.min_counter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(quintity[0]>0)
-                {
-                    quintity[0]=quintity[0]-1;
-                    holder.counter_text.setText(String.valueOf(quintity[0]));
-                    long result = data_base.save_cart_value(String.valueOf(food_list.get(position).getFoodid()),  food_list.get(position).getFoodName(),food_list.get(position).getFoodDes(),"image",String.valueOf(food_list.get(position).getFoodPrice()),String.valueOf(quintity[0]));
-
-                    if(result>0)
-                    {
-                        String amount =  data_base.get_the_total_amount();
-                        String quantity = data_base. get_the_total_quantity();
-                        cart_amout.setText("₹"+amount);
-                        if(quantity!=null)
-                        {
-                            items_total.setText(""+quantity+" Item");
-                        }
-                        Log.e("Result_amount",amount+"");
-                    }else {
-                        bottom_sheet_layout.setVisibility(View.INVISIBLE);
-                    }
-                }
-                else
-                {
-                    holder.add_btn.setVisibility(View.VISIBLE);
-                    holder.linearLayout_btn.setVisibility(View.VISIBLE);
-                    holder.linearLayout.setVisibility(View.INVISIBLE);
-                    bottom_sheet_layout.setVisibility(View.INVISIBLE);
-                    recyclerView.setPadding(0,0,0,0);
-
-                }
-
-
-
-                Log.e("Result Sub",quintity[0]+"");
-            }
-        });
-if(food_list.get(position).getImage()!=null){
-    try{
-        holder.imageView.setImageBitmap(BitmapFactory.decodeByteArray(food_list.get(position).getImage(),0,food_list.get(position).getImage().length));
-    }catch (Exception e)
-    {
-        e.printStackTrace();
-    }
-}
-else if(food_list.get(position).getFoodName().equals("Handi pasta"))
-{
-    holder.imageView.setImageResource(R.drawable.pasta);
-}
-else  if(food_list.get(position).getFoodName().equals("Chicken Cheese Pizza"))
-{
-    holder.imageView.setImageResource(R.drawable.chickenpasta);
-}
-else  if(food_list.get(position).getFoodName().equals("Chicken Tikka"))
-{
-    holder.imageView.setImageResource(R.drawable.chickentikka);
-}
-else  if(food_list.get(position).getFoodName().equals("Sahi Paneer"))
-{
-    holder.imageView.setImageResource(R.drawable.shahipaneer);
-}
-else {
-
-}
+//        final int[] quintity = {0};
+//        holder.food_name.setText(food_list.get(position).getFoodName());
+//        holder.food_price.setText(String.valueOf(food_list.get(position).getFoodPrice()));
+//        holder.food_desc.setText(food_list.get(position).getFoodDes());
+//        quintity[0] = food_list.get(position).getQuantity();
+//
+//
+//
+//
+//
+//bottom_sheet_view_cart_btn.setOnClickListener(new View.OnClickListener() {
+//    @Override
+//    public void onClick(View view) {
+//        Intent intent = new Intent(view.getContext(), Cart.class);
+//        context.startActivity(intent);
+//
+//
+//    }
+//});
+//
+//        if(food_list.get(position).getFoodCat().equals("veg"))
+//        {
+//            holder.cat_icon_image.setImageResource(R.drawable.veg);
+//        }
+//        else {
+//                 holder.cat_icon_image.setImageResource(R.drawable.nonveg);
+//        }
+//
+//        holder.add_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v)
+//            {
+//
+//                toolbar.setTitle(food_list.get(position).getFoodName());
+//                firstprice.setText(String.valueOf(food_list.get(position).getFoodPrice()));
+//                secondprice.setText(String.valueOf(food_list.get(position).getMedium_serving_price()));
+//                thirdprice.setText(String.valueOf(food_list.get(position).getLarge_serving_price()));
+//                dialog.show();
+//
+//                biryaniquantitybtn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        quintity[0]=quintity[0]+1;
+//                        holder.counter_text.setText(String.valueOf(quintity[0]));
+//
+//                        long result = data_base.save_cart_value(String.valueOf(food_list.get(position).getFoodid()),
+//                                food_list.get(position).getFoodName(),food_list.get(position).getFoodDes(),food_list.get(position).getFood_imag_url(),
+//                                String.valueOf(food_list.get(position).getFoodPrice()),String.valueOf(quintity[0]),cat_id);
+//
+//
+//                        if(result>0)
+//                        {
+//                            String amount =  data_base.get_the_total_amount();
+//                            String quantity = data_base. get_the_total_quantity();
+//                            cart_amout.setText("₹"+amount);
+//                            if(quantity!=null)
+//                            {
+//                                items_total.setText(""+quantity+" Item");
+//                            }
+//
+//                        }
+//                            bottom_sheet_layout.setVisibility(View.VISIBLE);
+//                            recyclerView.setPadding(0,0,0,120);
+//
+//                            holder.linearLayout_btn.setVisibility(View.INVISIBLE);
+//                            holder.linearLayout.setVisibility(View.VISIBLE);
+//
+//
+//                            dialog.dismiss();
+//
+//                        }
+//
+//
+//                });
+//
+//
+//
+//            }
+//        });
+//
+//
+//
+//
+//        holder.add_counter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                add_new_serv_name.setText(food_list.get(position).getFoodName());
+//               add_new_serving_size.setText("serving 1");
+//
+//                if(quintity[0]>0)
+//                {
+//                    add_new_serv_layout.setVisibility(View.VISIBLE);
+//                    bottom_sheet_layout.setVisibility(View.INVISIBLE);
+//
+//                }
+//                close_new_serv_layout_btn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        add_new_serv_layout.setVisibility(View.INVISIBLE);
+//                    }
+//                });
+//               add_new_serv_btn.setOnClickListener(new View.OnClickListener() {
+//                   @Override
+//                   public void onClick(View v) {
+//                       dialog.show();
+//                       add_new_serv_layout.setVisibility(View.INVISIBLE);
+//
+//                   }
+//               });
+//                repeat_last_serv_btn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        quintity[0]=quintity[0]+1;
+//                        holder.counter_text.setText(String.valueOf(quintity[0]));
+//                        long result = data_base.save_cart_value(String.valueOf(food_list.get(position).getFoodid()),
+//                                food_list.get(position).getFoodName(),food_list.get(position).getFoodDes(),"image",
+//                                String.valueOf(food_list.get(position).getFoodPrice()),String.valueOf(quintity[0]));
+//
+//
+//                        if(result>0)
+//                        {
+//                            String amount =  data_base.get_the_total_amount();
+//                            String quantity = data_base. get_the_total_quantity();
+//                            cart_amout.setText("₹"+amount);
+//                            if(quantity!=null)
+//                            {
+//                                items_total.setText(""+quantity+" Item");
+//                            }
+//
+//                        }
+//                        add_new_serv_layout.setVisibility(View.INVISIBLE);
+//                        bottom_sheet_layout.setVisibility(View.VISIBLE);
+//
+//                    }
+//                });
+//
+//
+//
+//
+//
+//
+//               // Log.e("Result _Add",quintity[0]+"");
+//
+//                //     long result =   data_base.save_cart_value(food_list.get(position).getFood_id(),  food_list.get(position).getFoodName(),food_list.get(position).getFoodDes(),"image",String.valueOf(food_list.get(position).getFoodPrice()),Integer.toString(food_list.get(position).getQuantity()));
+//
+//
+//            }
+//        });
+//        holder.min_counter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(quintity[0]>0)
+//                {
+//                    quintity[0]=quintity[0]-1;
+//                    holder.counter_text.setText(String.valueOf(quintity[0]));
+//                    long result = data_base.save_cart_value(String.valueOf(food_list.get(position).getFoodid()),  food_list.get(position).getFoodName(),food_list.get(position).getFoodDes(),"image",String.valueOf(food_list.get(position).getFoodPrice()),String.valueOf(quintity[0]));
+//
+//                    if(result>0)
+//                    {
+//                        String amount =  data_base.get_the_total_amount();
+//                        String quantity = data_base. get_the_total_quantity();
+//                        cart_amout.setText("₹"+amount);
+//                        if(quantity!=null)
+//                        {
+//                            items_total.setText(""+quantity+" Item");
+//                        }
+//                        Log.e("Result_amount",amount+"");
+//                    }else {
+//                        bottom_sheet_layout.setVisibility(View.INVISIBLE);
+//                    }
+//                }
+//                else
+//                {
+//                    holder.add_btn.setVisibility(View.VISIBLE);
+//                    holder.linearLayout_btn.setVisibility(View.VISIBLE);
+//                    holder.linearLayout.setVisibility(View.INVISIBLE);
+//                    bottom_sheet_layout.setVisibility(View.INVISIBLE);
+//                    recyclerView.setPadding(0,0,0,0);
+//
+//                }
+//
+//
+//
+//                Log.e("Result Sub",quintity[0]+"");
+//            }
+//        });
+//if(food_list.get(position).getImage()!=null){
+//    try{
+//        holder.imageView.setImageBitmap(BitmapFactory.decodeByteArray(food_list.get(position).getImage(),0,food_list.get(position).getImage().length));
+//    }catch (Exception e)
+//    {
+//        e.printStackTrace();
+//    }
+//}
+//else if(food_list.get(position).getFoodName().equals("Handi pasta"))
+//{
+//    holder.imageView.setImageResource(R.drawable.pasta);
+//}
+//else  if(food_list.get(position).getFoodName().equals("Chicken Cheese Pizza"))
+//{
+//    holder.imageView.setImageResource(R.drawable.chickenpasta);
+//}
+//else  if(food_list.get(position).getFoodName().equals("Chicken Tikka"))
+//{
+//    holder.imageView.setImageResource(R.drawable.chickentikka);
+//}
+//else  if(food_list.get(position).getFoodName().equals("Sahi Paneer"))
+//{
+//    holder.imageView.setImageResource(R.drawable.shahipaneer);
+//}
+//else {
+//
+//}
 
     }
 
