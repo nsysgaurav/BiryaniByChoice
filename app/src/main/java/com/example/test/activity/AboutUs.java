@@ -44,6 +44,7 @@ public class AboutUs extends AppCompatActivity {
             }
         });
 
+
         Element adselement = new Element();
         adselement.setTitle("Advertize here");
 
@@ -62,7 +63,7 @@ public class AboutUs extends AppCompatActivity {
             setContentView(aboutuspage);
     }
 
-    public Element CreateCopyright(){
+   public Element CreateCopyright(){
         Element Copyright = new Element();
         final String copyright =String.format("Copyright %d by BiryaniByChoice", Calendar.getInstance().get(Calendar.YEAR));
         Copyright.setTitle(copyright);

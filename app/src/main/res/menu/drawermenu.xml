@@ -10,7 +10,6 @@
     <item android:id="@+id/profile" android:title="Profile" android:icon="@drawable/ic_user"    />
     <item android:id="@+id/orders" android:title="Orders" android:icon="@drawable/ic_icons8_waiter"/>
     <!--<item android:id="@+id/combo" android:title="Combo" android:icon="@drawable/ic_tray"/>-->
-    <item android:id="@+id/share" android:title="Share" android:icon="@drawable/ic_share"/>
     <item android:id="@+id/about" android:title="About us" android:icon="@drawable/ic_about_us"/>
     <item android:id="@+id/contact" android:title="Contact us" android:icon="@drawable/ic_contact"/>
     <item android:id="@+id/address_book" android:title="Address Book" android:icon="@drawable/ic_notebook"/>

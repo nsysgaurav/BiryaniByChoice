@@ -268,10 +268,6 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
         int id = item.getItemId();
 
             switch (id) {
-
-                case R.id.share:
-                    break;
-
                 case R.id.orders:
                     if(sessionManager.isLoggedIn())
                     {
