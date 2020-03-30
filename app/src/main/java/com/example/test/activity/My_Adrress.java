@@ -51,7 +51,7 @@ public class My_Adrress extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my__adrress);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.my_address_toolbar);
         mShimmerViewContainer = (ShimmerFrameLayout)findViewById(R.id.shimmer_view_container);
         sessionManager = new SessionManager(this);
         userDetails = sessionManager.getUserSession();
@@ -62,6 +62,14 @@ public class My_Adrress extends AppCompatActivity {
         mShimmerViewContainer.startShimmerAnimation();
         textView=(TextView)findViewById(R.id.address_counter);
         add_the_address=(LinearLayout)findViewById(R.id.add_the_address);
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 //add the new
         add_the_address.setOnClickListener(new View.OnClickListener()

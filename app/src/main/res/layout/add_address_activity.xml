@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,10 +8,11 @@
     android:background="@color/white"
     tools:context=".activity.Add_new_Address_Activity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/add_address_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:titleTextColor="@color/white"
+        app:titleTextColor="@color/black"
+        app:title="Add Address"
         android:background="@color/colorPrimaryDark">
     </androidx.appcompat.widget.Toolbar>
 
@@ -19,7 +21,9 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="fill_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        >
 
         <LinearLayout
             android:orientation="vertical"

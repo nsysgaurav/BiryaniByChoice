@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:title="Contact Us"
-        app:titleTextColor="@color/colorPrimary"
+        app:titleTextColor="@color/black"
         android:background="@color/colorPrimaryDark"
         />
 

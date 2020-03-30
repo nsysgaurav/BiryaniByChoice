@@ -33,6 +33,10 @@ Toolbar toolbar;
       /*  profilePic = findViewById(R.id.prodilepic);*/
         toolbar = findViewById(R.id.customer_profile_toolbar);
 
+        Bundle bundle= getIntent().getExtras();
+
+        name.setText(bundle.getString("user_name"));
+
         myorders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
