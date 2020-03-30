@@ -14,7 +14,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:title="Contact Us"
         app:titleTextColor="@color/colorPrimary"
-        android:background="@color/toolbarColor"
+        android:background="@color/colorPrimaryDark"
         />
 
 
@@ -24,13 +24,11 @@
         android:orientation="vertical"
         android:layout_centerInParent="true"
         >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Laseez Biryani"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="40sp"
-            android:layout_marginLeft="10sp"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/logo_about_us"
+            android:src="@drawable/finallogo"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +42,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mob: 8568869450"
+            android:text="Mob: 011-43108331"
             android:drawableLeft="@drawable/ic_contact"
             android:drawablePadding="10sp"
             android:textSize="20sp"
@@ -64,7 +62,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="flat no 13 , Krishna market "
+            android:text="E-198, Ground Floor"
             android:textSize="20sp"
             android:textColor="#000000"
             android:textStyle="italic"
@@ -73,7 +71,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lajpat nagar-2"
+            android:text="Lajpat nagar-1, New Delhi"
             android:textSize="20sp"
             android:textStyle="italic"
             android:textColor="#000000"

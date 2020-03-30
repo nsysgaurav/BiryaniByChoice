@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.icu.util.Calendar;
+import android.icu.util.RangeValueIterator;
+import android.icu.util.ValueIterator;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,6 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.test.R;
+
+import mehdi.sakout.aboutpage.AboutPage;
+import mehdi.sakout.aboutpage.Element;
 
 public class AboutUs extends AppCompatActivity {
 
@@ -27,8 +34,6 @@ public class AboutUs extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         toolbar=findViewById(R.id.aboutusToolbar);
-        webView=findViewById(R.id.webview);
-        webView.loadUrl("http://192.168.1.60:8080/aboutus");
 
 
       toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -39,5 +44,39 @@ public class AboutUs extends AppCompatActivity {
                 finish();
             }
         });
+
+        Element adselement = new Element();
+        adselement.setTitle("Advertize here");
+
+        View aboutuspage = new AboutPage(this)
+                .isRTL(false)
+                .setImage(R.drawable.finallogo)
+                .addItem(new Element().setTitle("Version 1.0"))
+                .addItem(adselement)
+                .addGroup("Contact with us ")
+                .addEmail("nsyshospitality@gmail.com")
+                .addWebsite("biryanibychoice.com")
+                .addPlayStore("Biryani By Choice")
+                .addFacebook("BiryaniByChoice")
+                .addItem(CreateCopyright())
+                .create();
+            setContentView(aboutuspage);
     }
+
+    public Element CreateCopyright(){
+        Element Copyright = new Element();
+        final String copyright =String.format("Copyright %d by BiryaniByChoice", Calendar.getInstance().get(Calendar.YEAR));
+        Copyright.setTitle(copyright);
+        Copyright.setIcon(R.mipmap.ic_launcher);
+        Copyright.setGravity(Gravity.CENTER);
+        Copyright.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(AboutUs.this, copyright, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    return Copyright;
+    }
+
 }

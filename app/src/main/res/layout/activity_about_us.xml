@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AboutUs"
-    android:background="@drawable/aboutus">
+    tools:context=".activity.AboutUs">
 
 
     <LinearLayout
@@ -18,16 +17,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@android:style/ThemeOverlay.Material.Dark"
-            android:background="@color/toolbarColor"
+            android:background="@color/colorPrimaryDark"
             app:titleTextColor="@color/colorPrimary"
             app:title="@string/aboutUsToolbar"
 
             />
-        
-        <WebView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/webview"/>
 
     </LinearLayout>
 
