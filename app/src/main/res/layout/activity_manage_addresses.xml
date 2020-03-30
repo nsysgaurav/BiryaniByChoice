@@ -6,7 +6,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-  >
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -16,6 +16,7 @@
 
         app:title="Manage Addresses"
         android:id="@+id/manage_add_toolbar"/>
+
     <fragment
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -23,77 +24,131 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         tools:context=".ManageAddresses.ManageAddresses"
         android:id="@+id/maps"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Location  here"
-        android:textStyle="bold"
-        style="@style/TextAppearance.MaterialComponents.Body1"
-        android:id="@+id/Location_name"
-        android:layout_below="@+id/maps"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Location_name"
-        android:id="@+id/current_location"/>
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/addresslinear"
-        android:layout_below="@+id/current_location"
-        android:orientation="vertical">
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_below="@+id/maps">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.MaterialComponents.Body2"
-                android:id="@+id/houseno_flat"
-                android:hint="Houseno/Flatno/Block"
-                android:layout_margin="10sp"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
 
-       <com.google.android.material.textfield.TextInputLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
-
-           <EditText
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_margin="10sp"
-               style="@style/TextAppearance.MaterialComponents.Body2"
-               android:hint="Landmark"
-               />
-       </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save as"
-        android:id="@+id/saveas"
-        android:layout_below="@id/addresslinear"/>
-
-        <RadioGroup
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/saveas"
-            android:id="@+id/address_radioBtn"
-            android:orientation="horizontal">
+            >
 
-            <RadioButton
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_home_black_24dp"
-                android:hint="Home"
-               android:textColor="@drawable/radiobuttoncolor"
+                android:hint="Location  here"
+                android:textAllCaps="true"
+                android:padding="3sp"
+                android:textStyle="bold"
                 style="@style/TextAppearance.MaterialComponents.Body1"
+                android:id="@+id/Location_name"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Location_name"
+                android:id="@+id/current_location"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/addresslinear"
+                android:layout_below="@+id/current_location"
+                android:orientation="vertical">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:id="@+id/houseno_flat_man_ad"
+                        android:hint="Houseno/Flatno/Block"
+                        android:layout_margin="10sp"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10sp"
+                        android:id="@+id/landmark_man_ad"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:hint="Landmark"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10sp"
+                        android:id="@+id/city_man_ad"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:hint="City"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10sp"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:hint="Pincode"
+                        android:id="@+id/pincode_man_ad"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10sp"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:hint="State"
+                        android:id="@+id/state_man_ad"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save as"
                 android:layout_margin="5sp"
-                android:id="@+id/home"/>
+                android:id="@+id/saveas"
+                android:layout_below="@id/addresslinear"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/saveas"
+                android:id="@+id/address_radioBtn"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10sp">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_home_black_24dp"
+                    android:hint="Home"
+                    android:textColor="@drawable/radiobuttoncolor"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_margin="5sp"
+                    android:id="@+id/home_rd_btn_man_ad"/>
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -101,25 +156,27 @@
                     android:textColor="@drawable/radiobuttoncolor"
                     style="@style/TextAppearance.MaterialComponents.Body1"
                     android:hint="Work"
+                    android:id="@+id/work_rd_btn_man_id"
                     android:drawableStart="@drawable/ic_business_center_black_24dp"/>
-            <RadioButton
-                android:layout_width="wrap_content"
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Others"
+                    android:textColor="@drawable/radiobuttoncolor"
+                    android:id="@+id/other_rd_btn_man_ad"
+                    android:layout_margin="5sp"
+                    android:drawableLeft="@drawable/ic_edit_location_black_24dp"/>
+
+            </RadioGroup>
+
+            <Button
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Others"
-                android:textColor="@drawable/radiobuttoncolor"
+                android:text="Save Address"
+                android:id="@+id/save_add_btn_man_ad"
+                android:layout_below="@+id/address_radioBtn"
+                android:background="@color/colorPrimaryDark"/>
 
-                android:layout_margin="5sp"
-                android:drawableLeft="@drawable/ic_edit_location_black_24dp"/>
-
-        </RadioGroup>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save Address"
-        android:layout_marginBottom="30dp"
-        android:background="@color/colorPrimaryDark"
-        android:layout_alignParentBottom="true"/>
-
-
-
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

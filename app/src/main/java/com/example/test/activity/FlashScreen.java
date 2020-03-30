@@ -45,6 +45,13 @@ catch (Exception e)
 {
 
 }
+Handler handler = new Handler();
+handler.postDelayed(new Runnable() {
+    @Override
+    public void run() {
+        finish();
+    }
+},4000);
 
 
 
@@ -54,6 +61,7 @@ catch (Exception e)
     public void get_cat()
     {
         progressBar.setVisibility(View.VISIBLE);
+        progressBar.setBackgroundColor(getColor(R.color.colorPrimary2));
         volley_for_get_category obj_cat=new volley_for_get_category();
         obj_cat.get_all_category(FlashScreen.this,progressBar);
 

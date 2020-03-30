@@ -44,13 +44,14 @@
     </LinearLayout>
 
     <TextView
-        android:minHeight="65dp"
+        android:minHeight="30sp"
         android:layout_marginTop="2dp"
         android:textColor="#000"
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="10sp"
+        android:maxLines="4"
         android:id="@+id/new_c_desc"
         android:layout_below="@+id/linear"/>
     <RelativeLayout
