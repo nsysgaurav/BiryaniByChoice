@@ -41,7 +41,7 @@ Toolbar toolbar;
             }
         });
 
-       setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

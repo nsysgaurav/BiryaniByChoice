@@ -21,11 +21,12 @@
 
     <color name="white">#fff</color>
     <color name="black">#000</color>
+    <color name="liner_color">#6A6868</color>
     <color name="mainBackColor">#f7f7f7</color>
     <color name="red">#dd4f42</color>
     <color name="green">#0d9324</color>
     <color name="grey">#949799</color>
-    <color name="light_grey">#ECECEC</color>
+    <color name="light_grey">#F8F6F6</color>
     <color name="light_grey_shadow">#F8F7F7</color>
 
 </resources>

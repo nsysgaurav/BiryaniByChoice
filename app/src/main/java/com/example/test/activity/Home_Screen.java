@@ -26,7 +26,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.test.ManageAddresses.AddressList;
 import com.example.test.ManageAddresses.ManageAddresses;
 import com.example.test.Model.UserDetails;
 import com.example.test.OrderCart.Cart;
@@ -51,6 +50,7 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
     TabLayout tab;
     ViewPager viewPager;
     Toolbar toolbar;
+    EditText locationtext;
     TextView toolbarTitle;
     ArrayList<String> tabTitle = new ArrayList<>();
     ArrayList<HashMap<String, String>> cat_list = new ArrayList<>();
@@ -276,7 +276,7 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
                 startActivity(intent1);
                 break;
             case R.id.address_book:
-                Intent i3 = new Intent(this, AddressList.class);
+                Intent i3 = new Intent(this, My_Adrress.class);
                 onBackPressed();
                 startActivity(i3);
                 break;

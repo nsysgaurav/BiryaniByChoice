@@ -19,8 +19,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
-        <activity android:name=".ManageAddresses.AddressList"></activity>
-        <activity android:name=".activity.Add_address_before_payment" />
+        <activity android:name=".activity.My_Adrress"></activity>
+        <activity android:name=".activity.Add_new_Address_Activity"></activity>
+        <activity
+            android:name=".activity.Add_address_before_payment"
+            android:label="Add Address" />
         <activity android:name=".activity.Activity_otp_verify_registration" />
         <activity android:name=".activity.Home_Screen" />
 
