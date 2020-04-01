@@ -32,7 +32,6 @@ Toolbar toolbar;
         edit = findViewById(R.id.editProfile);
       /*  profilePic = findViewById(R.id.prodilepic);*/
         toolbar = findViewById(R.id.customer_profile_toolbar);
-
         Bundle bundle= getIntent().getExtras();
 
         name.setText(bundle.getString("user_name"));

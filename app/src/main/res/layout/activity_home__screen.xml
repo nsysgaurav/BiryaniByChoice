@@ -22,8 +22,25 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="#222222"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             android:background="@color/colorPrimaryDark">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/locationButton"
+                android:background="@drawable/ic_location_on_black_24dp"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:focusable="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@android:color/white"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:drawablePadding="2sp"
+                android:hint="Your location"
+                android:id="@+id/locationText"/>
         </androidx.appcompat.widget.Toolbar>
 
 

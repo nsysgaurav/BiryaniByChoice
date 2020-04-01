@@ -15,11 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.test.Internet_connection.Check_the_deliver_charges;
 import com.example.test.Model.CartModal;
 import com.example.test.Model.Cat_data;
 import com.example.test.Model.UserDetails;
@@ -48,13 +50,15 @@ public class Cart_layoutAdapter extends RecyclerView.Adapter<Cart_layoutAdapter.
     UserDetails userDetails;
     TextView total_amout_of_cart,pay_to;
     String total_amount;
+    TextView tax_charges;
 
-    public Cart_layoutAdapter(Context context,ArrayList<HashMap<String,String>> cart_map,TextView total_amout_of_cart,TextView pay_to)
+    public Cart_layoutAdapter(Context context,ArrayList<HashMap<String,String>> cart_map,TextView total_amout_of_cart,TextView pay_to,TextView tax_charges)
     {
         this.context = context;
         this.cart_map = cart_map;
         this.total_amout_of_cart=total_amout_of_cart;
         this.pay_to = pay_to;
+        this.tax_charges= tax_charges;
         sessionManager = new SessionManager(context);
         data_base = new DatabaseHelper(context);
         userDetails = sessionManager.getUserSession();
@@ -91,6 +95,7 @@ public class Cart_layoutAdapter extends RecyclerView.Adapter<Cart_layoutAdapter.
         {
             final int[] quintity = {0};
 
+            final String cat_id  =  cart_map.get(position).get("cat_id");
             final String product_cat_id  =  cart_map.get(position).get("product_cat_id");
             holder.itemName.setText(cart_map.get(position).get("product_name"));
             holder.itemquantity.setText(cart_map.get(position).get("qty"));
@@ -128,7 +133,7 @@ public class Cart_layoutAdapter extends RecyclerView.Adapter<Cart_layoutAdapter.
                         {
                             try
                             {
-                                remove_the_product_from_cart(userDetails.getId(),product_id,product_cat_id);
+                                remove_the_product_from_cart(userDetails.getId(),product_id,cat_id);
                             }
                             catch (Exception e)
                             {
@@ -194,7 +199,7 @@ public class Cart_layoutAdapter extends RecyclerView.Adapter<Cart_layoutAdapter.
 
 
 
-    public void save_the_data_to_cart(String user_id,String product_id,String quintity)
+    public void save_the_data_to_cart(final String user_id, String product_id, String quintity)
     {
         Cat_data cart = new Cat_data();
         cart.setUid(user_id);
@@ -243,10 +248,11 @@ public class Cart_layoutAdapter extends RecyclerView.Adapter<Cart_layoutAdapter.
                                             String product_id = object_artical.getString("product_id");
                                             String quantity = object_artical.getString("quantity");
                                             String amount = object_artical.getString("amount");
+                                            String cart_id = object_artical.getString("cart_id");
 
                                             try
                                             {
-                                                data_base.update_cart_value(product_id,amount,quantity);
+                                                data_base.update_cart_value(product_id,amount,quantity,cart_id);
 
                                             }
                                             catch (Exception e)
@@ -275,6 +281,14 @@ public class Cart_layoutAdapter extends RecyclerView.Adapter<Cart_layoutAdapter.
 
 
                                         }
+
+
+
+                                        Check_the_deliver_charges charges=new Check_the_deliver_charges();
+                                        charges.get_the_delivery_charges(context,user_id,total_amount,tax_charges,pay_to);
+
+
+
                                     }
                                 }
                                 catch (JSONException e)
@@ -324,10 +338,10 @@ public class Cart_layoutAdapter extends RecyclerView.Adapter<Cart_layoutAdapter.
     //remove the product from the cart-->
     public void remove_the_product_from_cart(String user_id, final String product_id, String cat_id)
     {
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("product_id",product_id);
-        hashMap.put("uid",user_id);
-        hashMap.put("cart_id",cat_id);
+        HashMap hashMap = new HashMap<>();
+        hashMap.put("product_id",Integer.parseInt(product_id));
+        hashMap.put("uid",Integer.parseInt(user_id));
+        hashMap.put("cart_id",Integer.parseInt(cat_id));
 
         Gson gson = new Gson();
         String jsno_data = gson.toJson(hashMap);
@@ -336,7 +350,7 @@ public class Cart_layoutAdapter extends RecyclerView.Adapter<Cart_layoutAdapter.
         String url = "http://3.6.27.167/api/removefromcart";
         JsonObjectRequest postRequest = null;
         try {
-            postRequest = new JsonObjectRequest(url, new JSONObject(jsno_data),
+            postRequest = new JsonObjectRequest(Request.Method.POST,url, new JSONObject(jsno_data),
                     new Response.Listener<JSONObject>()
                     {
                         @Override
@@ -352,7 +366,6 @@ public class Cart_layoutAdapter extends RecyclerView.Adapter<Cart_layoutAdapter.
                                 try
                                 {
                                     int status = response.getInt("status");
-
                                     if(status == 200)
                                     {
                                         if(response.has("internal_message"))
@@ -362,27 +375,25 @@ public class Cart_layoutAdapter extends RecyclerView.Adapter<Cart_layoutAdapter.
 
                                                 if(status_message.equalsIgnoreCase("Item removed successfully"))
                                                 {
-
                                                     int result= data_base.deleteItem(product_id);
-
-                                                    if(result>0) {
-
-
+                                                    if(result>0)
+                                                    {
                                                         ArrayList<HashMap<String, String>> cart_data = data_base.get_the_cart_data_with_product_name();
-
-                                                        if (cart_data != null) {
-                                                            try {
+                                                        if (cart_data != null)
+                                                        {
+                                                            try
+                                                            {
                                                                 cart_map.clear();
                                                                 cart_map = cart_data;
                                                                 notifyDataSetChanged();
                                                                 total_amout_of_cart.setText("₹" + total_amount);
                                                                 pay_to.setText("₹" + total_amount);
-                                                            } catch (Exception e) {
+                                                            }
+                                                            catch (Exception e)
+                                                            {
                                                                 Log.e("ERROR", e.toString());
 
                                                             }
-
-
                                                         }
                                                     }
                                                 }
@@ -424,15 +435,20 @@ public class Cart_layoutAdapter extends RecyclerView.Adapter<Cart_layoutAdapter.
 
 
             };
-        } catch (JSONException e) {
+        }
+        catch (JSONException e)
+        {
             e.printStackTrace();
         }
 
-        postRequest.setShouldCache(false);
+
+
         postRequest.setRetryPolicy(new DefaultRetryPolicy(
                 50000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        postRequest.setShouldCache(false);
+        queue.getCache().clear();
         queue.add(postRequest);
 
     }

@@ -125,7 +125,8 @@ public class Login extends AppCompatActivity {
                             try {
                                 JSONObject object = new JSONObject(response.toString());
                                 String status = object.getString("status");
-                                if (status.equalsIgnoreCase("success")) {
+                                if (status.equalsIgnoreCase("success"))
+                                {
 
                                     Intent in = new Intent(Login.this, Activity_otp_verify_registration.class);
                                     in.putExtra("mobile_number", mobile_number);

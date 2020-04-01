@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = DatabaseHelper.class.getSimpleName();
 
     private static final String DATABASE_NAME = "BIRYANI_DB";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static DatabaseHelper dbHelper = null;
     private static SQLiteDatabase db = null;
 
@@ -39,11 +39,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String product_Quantity = "PRODUCT_QUANTITY";
     private static final String product_total_amount = "PRODUCT_TOTAL_AMOUNT";
     private static final String product_category_id = "PRODUCT_CATEGORY_ID";
+    private static final String product_Cat_id = "PRODUCT_CAT_ID";
 
 
 
     private static final String RC_DETAILS_TABLE_QUERY = "create table " + RC_DETAILS_TABLE + " ( " + ID + " integer primary key autoincrement, "
-            + product_id + " text NOT NULL unique, " + product_name + " text, " + product_dec + " text, "+ product_Food_image+ " BLOB, "+product_PRICE+ " text, "+product_Quantity+ " text, "+product_total_amount+ " text, "+product_category_id+ " text);";
+            + product_id + " text NOT NULL unique, " + product_name + " text, " + product_dec + " text, "+ product_Food_image+ " BLOB, "+product_PRICE+ " text, "+product_Quantity+ " text, "+product_total_amount+ " text, "+product_category_id+ " text, "+product_Cat_id+ " text);";
 
 
 
@@ -113,6 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put(product_Quantity, product_Quantity_txt);
             values.put(product_total_amount, total_amount);
             values.put(product_category_id,product_cat_id);
+            values.put(product_Cat_id,"");
             Cursor cursor = null;
             try {
                 db = this.getReadableDatabase();
@@ -350,6 +352,65 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
+    public ArrayList<HashMap<String,String>> get_the_cart_data_for_order()
+    {
+        SQLiteDatabase db = null;
+        String amount_total = null;
+        ArrayList<HashMap<String,String>> cat_list=new ArrayList<>();
+        cat_list.clear();
+        HashMap<String,String> cat_list_hash;
+
+
+        Cursor cursor = null;
+        try {
+            db = this.getReadableDatabase();
+            String query = "select *" + " from " + RC_DETAILS_TABLE ;
+            cursor = db.rawQuery(query, null);
+            if (cursor != null) {
+
+                if (cursor.moveToFirst())
+                {
+                    do
+                    {
+                        cat_list_hash = new HashMap<>();
+                        cat_list_hash.clear();
+
+                        String product_id =   cursor.getString(1);
+                        String price =   cursor.getString(5);
+                        String quantity =  cursor.getString(6);
+                        cat_list_hash.put("product_id",product_id);
+                        cat_list_hash.put("qty",quantity);
+                        cat_list_hash.put("price",price);
+
+                        cat_list.add(cat_list_hash);
+
+
+
+                    }
+                    while (cursor.moveToNext());
+                }
+            }
+            return cat_list;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        finally
+        {
+            if (cursor != null && !cursor.isClosed())
+            {
+                cursor.close();
+            }
+            if (db != null)
+            {
+                db.close();
+            }
+        }
+    }
+
+
 
 
     public String get_the_total_quantity_by_id(String product_id1)
@@ -404,7 +465,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 //upate the product in the cart before order-->
-    public long update_cart_value(String  product_id_txt,String product_total_amounts,String product_Quantity_txt)
+    public long update_cart_value(String  product_id_txt,String product_total_amounts,String product_Quantity_txt,String cart_id)
     {
         //Log.v("DB_RC_DETAILS", rcID);
         SQLiteDatabase db = null;
@@ -416,6 +477,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             values.put(product_Quantity, product_Quantity_txt);
             values.put(product_total_amount, product_total_amounts);
+            values.put(product_Cat_id, cart_id);
             Cursor cursor = null;
             try {
                 db = this.getReadableDatabase();
@@ -489,11 +551,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         String quantity =  cursor.getString(6);
                         String total_amount =  cursor.getString(7);
                         String product_cat_id =  cursor.getString(8);
+                        String cat_id =  cursor.getString(9);
+
                         cat_list_hash.put("product_id",product_id);
                         cat_list_hash.put("product_name",product_name);
                         cat_list_hash.put("qty",quantity);
                         cat_list_hash.put("total_amount",total_amount);
                         cat_list_hash.put("product_cat_id",product_cat_id);
+                        cat_list_hash.put("cat_id",cat_id);
 
                         cat_list.add(cat_list_hash);
                     }

@@ -179,8 +179,8 @@ public class Addresss_adapter extends RecyclerView.Adapter<Addresss_adapter.Cart
     {
 
         progress_bar.setVisibility(View.VISIBLE);
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("id",id);
+        HashMap hashMap = new HashMap<>();
+        hashMap.put("id",Integer.parseInt(id));
 
         Gson gson = new Gson();
         String jsno_data = gson.toJson(hashMap);

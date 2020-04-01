@@ -19,6 +19,7 @@ public class Contactus extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contactus);
 
+        // For full screen
 
 
         toolbar =findViewById(R.id.contactToolbar);

@@ -4,24 +4,41 @@
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/cart_green_color1"
     android:orientation="vertical"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="50dp"
+    app:behavior_peekHeight="60dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
+<LinearLayout
+    android:weightSum="2"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:textSize="16dp"
+        android:gravity="center"
+        android:id="@+id/total_amount_card"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@color/cart_green_color"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"/>
 
 
     <LinearLayout
+        android:fontFamily="@font/raleway_bold"
+        android:background="@color/cart_green_color1"
+        android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp">
-
+        android:layout_width="0dp"
+        android:layout_height="60dp">
 
         <ProgressBar
-            android:id="@+id/progress_bar_buttom"
+            android:id="@+id/progress_bar"
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,18 +47,25 @@
 
 
         <TextView
-            android:id="@+id/save"
+            android:id="@+id/order_now"
             android:fontFamily="@font/raleway_bold"
-            android:textSize="14dp"
+            android:textSize="16dp"
             style="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/white"
-            android:text="Save"
+            android:text="Place order Now"
             android:textStyle="bold"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
 
+
     </LinearLayout>
+
+
+
+
+</LinearLayout>
+
 
 </LinearLayout>

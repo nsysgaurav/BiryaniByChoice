@@ -104,6 +104,8 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
                     android:gravity="center_vertical"
                     android:textSize="14dp"
                 android:backgroundTint="@color/white"

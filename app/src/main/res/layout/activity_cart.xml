@@ -7,10 +7,19 @@
     android:orientation="vertical"
     tools:context=".OrderCart.Cart"
     android:background="@color/light_grey_shadow">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_cart_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/white"
+        app:title="Your Cart"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:background="@color/colorPrimaryDark"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
 
         <LinearLayout
             android:paddingBottom="100dp"
@@ -271,6 +280,7 @@
 
 
                     <TextView
+                        android:id="@+id/deliver_charge"
                         android:textSize="14sp"
 
                         android:textColor="@color/black"
@@ -314,6 +324,7 @@
 
 
                     <TextView
+                        android:id="@+id/tax_charges"
                         android:textSize="14sp"
 
                         android:textColor="@color/black"

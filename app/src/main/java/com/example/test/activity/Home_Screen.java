@@ -67,8 +67,7 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
     SessionManager sessionManager;
     MenuItem nav_login, nav_profile, nav_orders, nav_address_book;
     UserDetails userDetails; //added by Lalit kumar on 20.march.2020 at 05:53 PM
-
-   DatabaseHelper databaseHelper;
+    DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -168,7 +167,10 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
         navigationView.setNavigationItemSelectedListener(Home_Screen.this);
         View header = navigationView.getHeaderView(0);
         sessionManager = new SessionManager(Home_Screen.this);
+
+        //below is added by Lalit kumar on 20.march.2020 at 17:58 PM
         Menu menu = navigationView.getMenu();
+
         nav_profile=menu.findItem(R.id.profile);
         nav_orders=menu.findItem(R.id.orders);
         nav_address_book=menu.findItem(R.id.address_book);
@@ -178,8 +180,6 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
             nav_address_book.setVisible(false);
             nav_orders.setVisible(false);
         }
-
-        //below is added by Lalit kumar on 20.march.2020 at 17:58 PM
         nav_login = menu.findItem(R.id.loginbtn);
 
         if (sessionManager.isLoggedIn())
@@ -261,85 +261,64 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
 
     }
 
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
         int id = item.getItemId();
+        switch (id) {
+            case R.id.orders:
+                onBackPressed();
+                startActivity(new Intent(this, Myorders.class));
+                break;
+            case R.id.about:
+                Intent i = new Intent(this, AboutUs.class);
+                onBackPressed();
+                startActivity(i);
 
-            switch (id) {
-                case R.id.orders:
-                    if(sessionManager.isLoggedIn())
+                Toast.makeText(this, "About Us", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.contact:
+                Intent intent = new Intent(this, Contactus.class);
+                onBackPressed();
+                startActivity(intent);
+
+                Toast.makeText(this, "Contact Us", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.profile:
+                userDetails=sessionManager.getUserSession();
+                Intent intent1 = new Intent(this, Customer_Profile.class);
+                intent1.putExtra("user_name",userDetails.getUsername());
+                onBackPressed();
+                startActivity(intent1);
+                break;
+            case R.id.address_book:
+                Intent i3 = new Intent(this, My_Adrress.class);
+                onBackPressed();
+                startActivity(i3);
+                break;
+            case R.id.loginbtn:
+                //added by Lalit kumar on 20.march.2020 at 03:00 PM
+                if (sessionManager.isLoggedIn()) {
+                    nav_login.setTitle("Logout");
+                    sessionManager.logoutUser();
+                    databaseHelper.delet_database();
+                    Intent in=new Intent(Home_Screen.this,Home_Screen.class);
+                    in.putExtra("All_cat_list",cat_list);
+                    startActivity(in);
+                    finish();
+                }
+                else
                     {
-                        onBackPressed();
-                        startActivity(new Intent(this, Myorders.class));
-                        break;
-                    }
-                    else
-                    {
-                        Toast.makeText(this, "Please Login to see your Orders", Toast.LENGTH_SHORT).show();
 
-                        break;
-                    }
-
-                case R.id.about:
-                    Intent i = new Intent(this, AboutUs.class);
+                    nav_login.setTitle("Login");
+                    Intent i4 = new Intent(this, Login.class);
                     onBackPressed();
-                    startActivity(i);
-
+                    startActivity(i4);
                     break;
-                case R.id.contact:
-                    Intent intent = new Intent(this, Contactus.class);
-                    onBackPressed();
-                    startActivity(intent);
+                }
+                //added by Lalit kumar on 20.march.2020 at 03:00 PM
 
-
-                    break;
-                case R.id.profile:
-                    if(sessionManager.isLoggedIn())
-                    {
-                        userDetails=sessionManager.getUserSession();
-                        Intent intent1 = new Intent(this, Customer_Profile.class);
-                        intent1.putExtra("user_name",userDetails.getUsername());
-                        onBackPressed();
-                        startActivity(intent1);
-                        break;
-                    }
-                    else{
-                        Toast.makeText(this, "Please Login First", Toast.LENGTH_SHORT).show();
-                        break;
-                    }
-
-                case R.id.address_book:
-                    Intent i3 = new Intent(this, My_Adrress.class);
-                    onBackPressed();
-                    startActivity(i3);
-                    break;
-                case R.id.loginbtn:
-                    //added by Lalit kumar on 20.march.2020 at 03:00 PM
-                    if (sessionManager.isLoggedIn()) {
-                        nav_login.setTitle("Logout");
-                        sessionManager.logoutUser();
-                        databaseHelper.delet_database();
-                        Intent in=new Intent(Home_Screen.this,Home_Screen.class);
-                        in.putExtra("All_cat_list",cat_list);
-                        startActivity(in);
-                        finish();
-                    }
-                    else
-                    {
-
-                        nav_login.setTitle("Login");
-                        Intent i4 = new Intent(this, Login.class);
-                        onBackPressed();
-                        startActivity(i4);
-                        break;
-                    }
-                    //added by Lalit kumar on 20.march.2020 at 03:00 PM
-
-            }
-
-
+        }
         return true;
     }
 
@@ -354,8 +333,35 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Intent intent = new Intent(this, Cart.class);
-        startActivity(intent);
+       // Intent intent = new Intent(this, Cart.class);
+        //startActivity(intent);
+
+        if(utility.isOnline(Home_Screen.this)==true)
+        {
+            if (sessionManager.isLoggedIn())
+            {
+                Intent in = new Intent(Home_Screen.this,Cart.class);
+                startActivity(in);
+
+            }
+            else
+            {
+
+                Toast.makeText(Home_Screen.this,"kindly login first!",Toast.LENGTH_LONG).show();
+                Intent in = new Intent(Home_Screen.this,Login.class);
+                startActivity(in);
+
+            }
+        }
+        else
+        {
+            Toast.makeText(Home_Screen.this,"kindly check your internet connection!",Toast.LENGTH_LONG).show();
+
+        }
+
+
+
+
         return super.onOptionsItemSelected(item);
 
     }

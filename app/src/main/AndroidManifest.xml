@@ -18,9 +18,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
+        android:largeHeap="true"
         tools:replace="android:label">
-        <activity android:name=".activity.My_Adrress"></activity>
-        <activity android:name=".activity.Add_new_Address_Activity"></activity>
+        <activity android:name=".activity.Payment_Success_Activity"></activity>
+        <activity android:name=".activity.Order_Summary_Activity" />
+        <activity android:name=".activity.My_Adrress" />
+        <activity android:name=".activity.Add_new_Address_Activity" />
         <activity
             android:name=".activity.Add_address_before_payment"
             android:label="Add Address" />

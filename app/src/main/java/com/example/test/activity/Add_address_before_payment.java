@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -33,6 +35,7 @@ import com.example.test.OrderCart.Cart;
 import com.example.test.R;
 import com.example.test.ViewHolder.Cart_layoutAdapter;
 import com.example.test.util.utility;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -48,7 +51,7 @@ public class Add_address_before_payment extends AppCompatActivity
     Toolbar toolbar;
     EditText house_text,road_name,land_mark,state,pincode,last_name,name,phone_number;
     RadioButton home_address,work_address;
-    LinearLayout save;
+    TextView save;
     AppCompatSpinner city;
     int address_type=0;
     UserDetails userDetails;
@@ -56,7 +59,10 @@ public class Add_address_before_payment extends AppCompatActivity
 
     private ProgressBar progressBar;
     ArrayList<String> spinner_city_list=new ArrayList<>();
-
+    Intent in;
+    String total_amount;
+    ArrayList<HashMap<String,String>> hashMapArrayList=new ArrayList<>();
+    HashMap address_hashMap;
 
     public void spinner_list_data()
     {
@@ -90,6 +96,12 @@ public class Add_address_before_payment extends AppCompatActivity
         sessionManager=new SessionManager(this);
         userDetails = sessionManager.getUserSession();
 
+        in = getIntent();
+        if (in != null)
+        {
+            total_amount = in.getStringExtra("total_amount");
+        }
+
         spinner_list_data();
 
         init();
@@ -109,8 +121,8 @@ public class Add_address_before_payment extends AppCompatActivity
         phone_number=(EditText)findViewById(R.id.phone_number);
         home_address=(RadioButton)findViewById(R.id.home_address);
         work_address =(RadioButton)findViewById(R.id.work_address);
-        save =(LinearLayout)findViewById(R.id.save);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        save =(TextView) findViewById(R.id.save);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar_buttom);
 
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,spinner_city_list);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -218,6 +230,7 @@ public class Add_address_before_payment extends AppCompatActivity
                 }
                 else
                 {
+                    save.setVisibility(View.GONE);
                     save_the_address(userDetails.getId(),address_type,"nys",name_txt,last_name.getText().toString(),house_txt,road_txt,city_txt,state_txt,pincode_txt,mobile_number,land_txt);
                 }
             }
@@ -228,10 +241,10 @@ public class Add_address_before_payment extends AppCompatActivity
 
 
 
-    public void save_the_address(String id,int address_type,String company_name,String first_name,String last_name,String addres1,String address2,String city,String state,String post_code,String phone,String landmark)
+    public void save_the_address(final String id, int address_type, String company_name, String first_name, String last_name, String addres1, String address2, String city, String state, String post_code, String phone, String landmark)
     {
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("user_id",id);
+        HashMap hashMap = new HashMap<>();
+        hashMap.put("uid",Integer.parseInt(id));
         hashMap.put("type","SHIPPING");
         if(address_type==1)
         {
@@ -310,13 +323,21 @@ public class Add_address_before_payment extends AppCompatActivity
                                         if(object.getString("internal_message").equalsIgnoreCase("Address added successfully"))
                                         {
 
-                                            Toast.makeText(Add_address_before_payment.this,"Address added successfully ",Toast.LENGTH_SHORT).show();
-                                            Intent in=new Intent(Add_address_before_payment.this,My_Adrress.class);
-                                            startActivity(in);
-                                            finish();
+                                            //Toast.makeText(Add_address_before_payment.this,"Address added successfully ",Toast.LENGTH_SHORT).show();
+                                          //  Intent in=new Intent(Add_address_before_payment.this,My_Adrress.class);
+                                          //  startActivity(in);
+                                      //      finish();
+
+                                            get_the_address(Add_address_before_payment.this,id,total_amount);
 
 
                                         }
+                                    }
+
+                                    else
+                                    {
+                                        save.setVisibility(View.VISIBLE);
+                                        Toast.makeText(Add_address_before_payment.this,"Failed to save the address",Toast.LENGTH_SHORT).show();
                                     }
 
 
@@ -342,6 +363,7 @@ public class Add_address_before_payment extends AppCompatActivity
 
                     if (progressBar.isShown()) {
                         progressBar.setVisibility(View.GONE);
+                        save.setVisibility(View.VISIBLE);
                     }
                     Log.e("error",error.toString());
                 }
@@ -380,76 +402,145 @@ public class Add_address_before_payment extends AppCompatActivity
 
 
 
-/*
-    public void save_the_address(final String id, final int address_type, final String company_name, final String first_name, final String last_name, final String addres1, final String address2, final String city, final String state, final String post_code, final String phone, final String landmark)
+
+
+    public void  get_the_address(final Context context, String user_id, final String total_amount)
     {
 
-        RequestQueue queue = Volley.newRequestQueue(Add_address_before_payment.this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, "http://3.6.27.167/api/add-customer-address",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+        HashMap<String,String> hashMap=new HashMap<>();
+        hashMap.put("nsyskey","082057a4d249514389bb90c6d50ecf23");
+        hashMap.put("uid",user_id);
 
-                        // response
-                        Log.e("Response------------------------->", response);
-
-
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
+        Gson gson = new Gson();
+        String jsno_data = gson.toJson(hashMap);
+        Log.e("jsno_data",jsno_data.toString());
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = "http://3.6.27.167/api/get-customer-address";
+        JsonObjectRequest postRequest = null;
+        try {
+            postRequest = new JsonObjectRequest(url, new JSONObject(jsno_data),
+                    new Response.Listener<JSONObject>()
                     {
-                        Log.e("Responseerror------------------------->", error.toString());
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> hashMap = new HashMap<String, String>();
-                hashMap.put("user_id",id);
-                hashMap.put("type","SHIPPING");
+                        @Override
+                        public void onResponse(JSONObject response)
+                        {
+                            //Process os success response
+                          //  mShimmerViewContainer.stopShimmerAnimation();
+                         //   mShimmerViewContainer.setVisibility(View.GONE);
 
-                if(address_type==1)
+                            Log.e("response",response.toString());
+
+                            if(response!=null)
+                            {
+                                try
+                                {
+                                    int status = response.getInt("status");
+                                    if(status==200)
+                                    {
+
+                                        JSONObject json_success_obj = response.getJSONObject("success");
+                                        JSONObject json_data_obj = json_success_obj.getJSONObject("data");
+                                        JSONArray jsonArray = json_data_obj.getJSONArray("address");
+                                        for(int i=0;i<1;i++)
+                                        {
+                                            JSONObject obj_address=jsonArray.getJSONObject(i);
+                                            address_hashMap = new HashMap<>();
+                                            address_hashMap.clear();
+                                            String id=obj_address.getString("id");
+                                            String first_name=obj_address.getString("first_name");
+                                            String last_name=obj_address.getString("last_name");
+                                            String address1=obj_address.getString("address1");
+                                            String address2=obj_address.getString("address2");
+                                            String city=obj_address.getString("city");
+                                            String zipcode=obj_address.getString("zipcode");
+                                            String phone=obj_address.getString("phone");
+                                            String landmark=obj_address.getString("landmark");
+                                            String type=obj_address.getString("type");
+                                            String state=obj_address.getString("state");
+                                            String address_type=obj_address.getString("address_type");
+
+                                            address_hashMap.put("id",id);
+                                            address_hashMap.put("first_name",first_name);
+                                            address_hashMap.put("last_name",last_name);
+                                            address_hashMap.put("address1",address1);
+                                            address_hashMap.put("address2",address2);
+                                            address_hashMap.put("city",city);
+                                            address_hashMap.put("zipcode",zipcode);
+                                            address_hashMap.put("phone",phone);
+                                            address_hashMap.put("landmark",landmark);
+                                            address_hashMap.put("type",type);
+                                            address_hashMap.put("state",state);
+                                            address_hashMap.put("address_type",address_type);
+
+                                            hashMapArrayList.add(address_hashMap);
+                                        }
+
+                                        if(hashMapArrayList.isEmpty())
+                                        {
+                                            Intent intent=new Intent(context, Add_address_before_payment.class);
+                                            intent.putExtra("total_amount",total_amount);
+                                            context.startActivity(intent);
+
+                                        }
+                                        else
+                                        {
+                                            Intent intent=new Intent(context, Order_Summary_Activity.class);
+                                            intent.putExtra("Address_list",hashMapArrayList);
+                                            intent.putExtra("total_amount",total_amount);
+                                            context.startActivity(intent);
+                                        }
+
+                                    }
+
+                                    else
+                                    {
+                                        Intent intent=new Intent(context, Add_address_before_payment.class);
+                                        intent.putExtra("total_amount",total_amount);
+                                        context.startActivity(intent);
+
+                                    }
+                                }
+                                catch (JSONException e)
+                                {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        }
+                    }, new Response.ErrorListener()
+            {
+                @Override
+                public void onErrorResponse(VolleyError error)
                 {
-                    hashMap.put("address_type","home");
+                   // mShimmerViewContainer.stopShimmerAnimation();
+                   // mShimmerViewContainer.setVisibility(View.GONE);
 
-
+                    Log.e("error",error.toString());
                 }
-                if(address_type==2)
+
+            }){
+                @Override
+                public String getBodyContentType()
                 {
-                    hashMap.put("address_type","work");
-
+                    return "application/json";
                 }
 
-                hashMap.put("company_name",company_name);
-                hashMap.put("first_name",first_name);
-                hashMap.put("last_name",last_name);
-                hashMap.put("address1",addres1);
-                hashMap.put("address2",address2);
-                hashMap.put("city",city);
-                hashMap.put("state",state);
-                hashMap.put("postcode",post_code);
-                hashMap.put("phone",phone);
-                hashMap.put("landmark",landmark);
-
-                Log.e("Responseerror------------------------->", hashMap.toString());
 
 
-                return hashMap;
-            }
-        };
+            };
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         postRequest.setShouldCache(false);
         postRequest.setRetryPolicy(new DefaultRetryPolicy(
                 50000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(postRequest);
+
     }
-*/
-
-
 
 
 }

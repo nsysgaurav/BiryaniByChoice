@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -38,9 +40,9 @@ import java.util.HashMap;
 public class Add_new_Address_Activity extends AppCompatActivity
 {
     Toolbar toolbar;
- public    EditText house_text,road_name,land_mark,state,pincode,name,phone_number,last_name;
+    public EditText house_text,road_name,land_mark,state,pincode,name,phone_number,last_name;
     RadioButton home_address,work_address;
-    LinearLayout save;
+    TextView save;
     int address_type=0;
     UserDetails userDetails;
     SessionManager sessionManager;
@@ -50,8 +52,8 @@ public class Add_new_Address_Activity extends AppCompatActivity
 
     ArrayList<String> spinner_city_list=new ArrayList<>();
 
-Intent in;
-int isedit;
+    Intent in;
+    int isedit;
 
     String id_int;
     String first_name_int;
@@ -67,11 +69,10 @@ int isedit;
     String address_type_int;
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         super.onBackPressed();
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -144,7 +145,7 @@ int isedit;
         phone_number=(EditText)findViewById(R.id.phone_number);
         home_address=(RadioButton)findViewById(R.id.home_address);
         work_address =(RadioButton)findViewById(R.id.work_address);
-        save =(LinearLayout)findViewById(R.id.save);
+        save =(TextView)findViewById(R.id.save);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,spinner_city_list);
@@ -269,8 +270,8 @@ int isedit;
 
     public void save_the_address(String id,int address_type,String company_name,String first_name,String last_name,String addres1,String address2,String city,String state,String post_code,String phone,String landmark)
     {
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("user_id",id);
+        HashMap hashMap = new HashMap<>();
+        hashMap.put("uid",Integer.parseInt(id));
         hashMap.put("type","SHIPPING");
         if(address_type==1)
         {
@@ -283,28 +284,28 @@ int isedit;
 
         if(city.equalsIgnoreCase("CENTRAL DELHI"))
         {
-            hashMap.put("city","1");
+            hashMap.put("city",Integer.parseInt("1"));
 
         }
         else if(city.equalsIgnoreCase("NORTH DELHI"))
         {
-            hashMap.put("city","2");
+            hashMap.put("city",Integer.parseInt("2"));
         }
         else if(city.equalsIgnoreCase("SOUTH WEST DELHI"))
         {
-            hashMap.put("city","3");
+            hashMap.put("city",Integer.parseInt("3"));
         }
         else if(city.equalsIgnoreCase("WEST DELHI"))
         {
-            hashMap.put("city","4");
+            hashMap.put("city",Integer.parseInt("4"));
         }
         else if(city.equalsIgnoreCase("NEW DELHI"))
         {
-            hashMap.put("city","5");
+            hashMap.put("city",Integer.parseInt("5"));
         }
         else if(city.equalsIgnoreCase("EAST DELHI"))
         {
-            hashMap.put("city","6");
+            hashMap.put("city",Integer.parseInt("6"));
         }
 
 
@@ -313,7 +314,7 @@ int isedit;
         hashMap.put("last_name",last_name);
         hashMap.put("address1",addres1);
         hashMap.put("address2",address2);
-        hashMap.put("state","1");
+        hashMap.put("state",1);
         hashMap.put("postcode",post_code);
         hashMap.put("phone",phone);
         hashMap.put("landmark",landmark);
@@ -327,7 +328,7 @@ int isedit;
 
         JsonObjectRequest postRequest = null;
         try {
-            postRequest = new JsonObjectRequest(url, new JSONObject(jsno_data),
+            postRequest = new JsonObjectRequest(Request.Method.POST,url, new JSONObject(jsno_data),
                     new Response.Listener<JSONObject>()
                     {
                         @Override
@@ -399,11 +400,13 @@ finish();
             e.printStackTrace();
         }
 
-        postRequest.setShouldCache(false);
+
         postRequest.setRetryPolicy(new DefaultRetryPolicy(
                 50000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        postRequest.setShouldCache(false);
+        queue.getCache().clear();
         queue.add(postRequest);
 
     }
@@ -563,10 +566,10 @@ public void set_the_data_from_intent()
 
     public void update_the_address(String address_id,String id,int address_type,String company_name,String first_name,String last_name,String addres1,String address2,String city,String state,String post_code,String phone,String landmark)
     {
-        HashMap<String,String> hashMap = new HashMap<>();
+        HashMap hashMap = new HashMap<>();
 
-        hashMap.put("address_id",address_id);
-        hashMap.put("user_id",id);
+        hashMap.put("address_id",Integer.parseInt(address_id));
+        hashMap.put("uid",Integer.parseInt(id));
         hashMap.put("type","SHIPPING");
         if(address_type==1)
         {
@@ -644,10 +647,10 @@ public void set_the_data_from_intent()
                                     if(status==200)
                                     {
                                         JSONObject object=response.getJSONObject("success");
-                                        if(object.getString("internal_message").equalsIgnoreCase("Address added successfully"))
+                                        if(object.getString("internal_message").equalsIgnoreCase("Address updated successfully"))
                                         {
 
-                                            Toast.makeText(Add_new_Address_Activity.this,"Address added successfully ",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(Add_new_Address_Activity.this,"Address updated successfully ",Toast.LENGTH_SHORT).show();
                                             Intent in=new Intent(Add_new_Address_Activity.this,My_Adrress.class);
                                             startActivity(in);
                                             finish();

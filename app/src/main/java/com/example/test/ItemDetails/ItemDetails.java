@@ -5,7 +5,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,7 +43,7 @@ public class ItemDetails extends AppCompatActivity {
         Bundle bundle=getIntent().getExtras();
         toolbar.setTitle(bundle.getString("name"));
         foodTitle.setText(bundle.getString("name"));
-        foodDesc.setText(Html.fromHtml(bundle.getString("desc")).toString());
+        foodDesc.setText(bundle.getString("desc"));
         foodPrice.setText(bundle.getString("price"));
 
 

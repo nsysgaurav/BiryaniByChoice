@@ -26,6 +26,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.test.Internet_connection.Check_address;
+import com.example.test.Internet_connection.Check_the_deliver_charges;
 import com.example.test.Model.CartModal;
 import com.example.test.Model.Cat_data;
 import com.example.test.Model.UserDetails;
@@ -55,7 +57,7 @@ public class Cart extends AppCompatActivity {
     DatabaseHelper data_base;
     RelativeLayout relativeLayout;
     TextView remove_donation , item_total;
-    private ShimmerFrameLayout mShimmerViewContainer;
+    public ShimmerFrameLayout mShimmerViewContainer;
     SessionManager sessionManager;
     String user_id;
     UserDetails userDetails;
@@ -64,6 +66,8 @@ public class Cart extends AppCompatActivity {
     String total_amount;
     LinearLayout bottom_sheet;
     LinearLayout order_now;
+   TextView deliver_charge,tax_charges;
+   Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -73,12 +77,23 @@ public class Cart extends AppCompatActivity {
         item_total = findViewById(R.id.items_total);
         DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
          recyclerView = findViewById(R.id.cartview);
+        deliver_charge=findViewById(R.id.deliver_charge);
+        tax_charges=findViewById(R.id.tax_charges);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         sessionManager = new SessionManager(this);
         data_base = new DatabaseHelper(this);
         bottom_sheet.setVisibility(View.INVISIBLE);
         mShimmerViewContainer.startShimmerAnimation();
+        toolbar = findViewById(R.id.my_cart_toolbar);
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         userDetails = sessionManager.getUserSession();
         if(userDetails.getId()!= null)
@@ -97,22 +112,26 @@ public class Cart extends AppCompatActivity {
         total_amout_of_cart=(TextView)findViewById(R.id.total_amout_of_cart);
         pay_to = (TextView)findViewById(R.id.pay_to);
         bottom_sheet = (LinearLayout)findViewById(R.id.bottom_sheet);
-        order_now=(LinearLayout)findViewById(R.id.order_now);
+        order_now = (LinearLayout)findViewById(R.id.order_now);
 
-        order_now.setOnClickListener(new View.OnClickListener() {
+        order_now.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
-          Intent intent=new Intent(Cart.this, Add_address_before_payment.class);
-          startActivity(intent);
+            //  Intent intent=new Intent(Cart.this, Add_address_before_payment.class);
+             // startActivity(intent);
+
+                Check_address check_address = new Check_address();
+                check_address.get_the_address(Cart.this,userDetails.getId(),mShimmerViewContainer,total_amount);
+
 
             }
         });
     }
 
-
     //save the product to the cart-->
-    public void  save_the_data_to_cart(String user_id)
+    public void  save_the_data_to_cart(final String user_id)
     {
         Cat_data cart = new Cat_data();
         cart.setUid(user_id);
@@ -125,7 +144,7 @@ public class Cart extends AppCompatActivity {
         String url = "http://3.6.27.167/api/addtocart";
         JsonObjectRequest postRequest = null;
         try {
-            postRequest = new JsonObjectRequest(url, new JSONObject(jsno_data),
+            postRequest = new JsonObjectRequest(Request.Method.POST,url, new JSONObject(jsno_data),
                     new Response.Listener<JSONObject>()
                     {
                         @Override
@@ -154,14 +173,14 @@ public class Cart extends AppCompatActivity {
                                         for(int i=0;i<jsonArray.length();i++)
                                         {
                                             JSONObject object_artical = jsonArray.getJSONObject(i);
-
                                             String product_id = object_artical.getString("product_id");
                                             String quantity = object_artical.getString("quantity");
                                             String amount = object_artical.getString("amount");
+                                            String cart_id = object_artical.getString("cart_id");
 
                                         try
                                         {
-                                            data_base.update_cart_value(product_id,amount,quantity);
+                                            data_base.update_cart_value(product_id,amount,quantity,cart_id);
 
                                             }
                                         catch (Exception e)
@@ -174,7 +193,7 @@ public class Cart extends AppCompatActivity {
 
                                           if(cart_data!=null)
                                           {
-                                              recyclerView.setAdapter(new Cart_layoutAdapter(Cart.this,cart_data,total_amout_of_cart,pay_to));
+                                              recyclerView.setAdapter(new Cart_layoutAdapter(Cart.this,cart_data,total_amout_of_cart,pay_to,tax_charges));
                                           }
 
                                           if(total_amount!=null)
@@ -183,9 +202,16 @@ public class Cart extends AppCompatActivity {
                                               pay_to.setText("₹"+total_amount);
                                           }
 
+                                          try
+                                          {
+                                              Check_the_deliver_charges charges=new Check_the_deliver_charges();
+                                              charges.get_the_delivery_charges(Cart.this,user_id,total_amount,deliver_charge,tax_charges,pay_to);
 
+                                          }
+                                          catch (Exception e)
+                                          {
 
-
+                                          }
                                     }
                                 }
                                 catch (JSONException e)

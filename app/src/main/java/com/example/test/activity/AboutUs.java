@@ -23,9 +23,9 @@ import mehdi.sakout.aboutpage.Element;
 
 public class AboutUs extends AppCompatActivity {
 
-   Toolbar toolbar;
-  public static WebView webView;
-  public static TextView textView;
+    Toolbar toolbar;
+    public static WebView webView;
+    public static TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class AboutUs extends AppCompatActivity {
         toolbar=findViewById(R.id.aboutusToolbar);
 
 
-      toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +43,6 @@ public class AboutUs extends AppCompatActivity {
                 finish();
             }
         });
-
 
         Element adselement = new Element();
         adselement.setTitle("Advertize here");
@@ -60,10 +59,10 @@ public class AboutUs extends AppCompatActivity {
                 .addFacebook("BiryaniByChoice")
                 .addItem(CreateCopyright())
                 .create();
-            setContentView(aboutuspage);
+        setContentView(aboutuspage);
     }
 
-   public Element CreateCopyright(){
+    public Element CreateCopyright(){
         Element Copyright = new Element();
         final String copyright =String.format("Copyright %d by BiryaniByChoice", Calendar.getInstance().get(Calendar.YEAR));
         Copyright.setTitle(copyright);
@@ -76,7 +75,7 @@ public class AboutUs extends AppCompatActivity {
             }
         });
 
-    return Copyright;
+        return Copyright;
     }
 
 }
