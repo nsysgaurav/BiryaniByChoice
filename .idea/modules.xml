@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BiryaniBychoiceFinal.iml" filepath="$PROJECT_DIR$/BiryaniBychoiceFinal.iml" group="BiryaniBychoiceFinal" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="BiryaniBychoiceFinal/app" />
+      <module fileurl="file://$PROJECT_DIR$/BiryaniBychoiceGaurav.iml" filepath="$PROJECT_DIR$/BiryaniBychoiceGaurav.iml" group="BiryaniBychoiceGaurav" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="BiryaniBychoiceGaurav/app" />
     </modules>
   </component>
 </project>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.content.pm.PackageManager;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -30,13 +31,13 @@ public class FlashScreen extends AppCompatActivity {
 
         text = findViewById(R.id.text);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
+        progressBar.getIndeterminateDrawable().setColorFilter(getColor(R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if(ActivityCompat.checkSelfPermission(FlashScreen.this,ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+      /*  if(ActivityCompat.checkSelfPermission(FlashScreen.this,ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(FlashScreen.this, new String[]{ACCESS_FINE_LOCATION},1);
-        }
+        }*/
 
 try {
     get_cat();
