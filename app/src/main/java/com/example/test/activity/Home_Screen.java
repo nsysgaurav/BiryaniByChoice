@@ -268,7 +268,7 @@ public class Home_Screen extends AppCompatActivity implements NavigationView.OnN
         switch (id) {
             case R.id.orders:
                 onBackPressed();
-                startActivity(new Intent(this, Myorders.class));
+                startActivity(new Intent(this, Order_history_Activity.class));
                 break;
             case R.id.about:
                 Intent i = new Intent(this, AboutUs.class);

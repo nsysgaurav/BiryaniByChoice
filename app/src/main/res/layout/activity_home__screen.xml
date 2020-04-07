@@ -25,6 +25,7 @@
             app:titleTextColor="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             android:background="@color/colorPrimaryDark">
+
         </androidx.appcompat.widget.Toolbar>
 
 

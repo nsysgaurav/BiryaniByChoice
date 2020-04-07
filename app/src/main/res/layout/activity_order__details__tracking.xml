@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.Order_Details_Tracking_Activity"
+    android:background="@color/light_grey_shadow">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_cart_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@color/white"
+        app:title="Order Details"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:background="@color/colorPrimaryDark"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/task">
+
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:visibility="gone"
+                android:id="@+id/shimmer_view_container"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/recipe_placeholder_item" />
+
+                    <include layout="@layout/recipe_placeholder_item" />
+
+                    <include layout="@layout/recipe_placeholder_item" />
+
+                    <include layout="@layout/recipe_placeholder_item" />
+
+                    <include layout="@layout/recipe_placeholder_item" />
+
+                    <include layout="@layout/recipe_placeholder_item" />
+                    <include layout="@layout/recipe_placeholder_item" />
+
+
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+            <androidx.cardview.widget.CardView
+                android:elevation="2dp"
+                app:cardElevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:minHeight="60dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Body2"
+                        android:paddingLeft="10dp"
+                        android:textSize="16dp"
+                        android:gravity="center_vertical"
+                        android:text="Order Number"
+                        android:fontFamily="@font/railway_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:id="@+id/oder_number"
+                        style="@style/TextAppearance.AppCompat.Body2"
+                        android:paddingLeft="10dp"
+                        android:textSize="16dp"
+                        android:gravity="center_vertical"
+                        android:text="12e33d3d3"
+                        android:fontFamily="@font/railway_regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+
+                android:layout_marginBottom="10dp"
+                android:weightSum="5"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:background="@drawable/home_icon"
+                        android:layout_width="33dp"
+                        android:layout_height="30dp"></ImageView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_weight="4"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp">
+
+                        <TextView
+                            android:fontFamily="@font/railway_regular"
+                            android:textAllCaps="true"
+                            android:id="@+id/type"
+                            android:text="Home"
+                            style="@style/TextAppearance.AppCompat.Body2"
+                            android:textSize="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+
+                        </TextView>
+
+                        <TextView
+                            android:fontFamily="@font/railway_regular"
+                            android:id="@+id/address"
+                            android:textColor="@color/gray"
+                            android:text="554,Anand puri,muzaffarnagar,251001"
+                            style="@style/TextAppearance.AppCompat.Body2"
+                            android:textSize="12dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </TextView>
+                </LinearLayout>
+            </LinearLayout>
+
+                    <View
+                        android:layout_marginLeft="70dp"
+                        android:background="@color/light_grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"></View>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:weightSum="5"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp">
+
+
+                                <ImageView
+                                    android:background="@drawable/scooter"
+                                    android:layout_width="40dp"
+                                    android:layout_height="35dp"></ImageView>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:layout_weight="4"
+                                android:layout_width="0dp"
+                                android:layout_height="50dp">
+                                <TextView
+
+                                    android:textStyle="bold"
+                                    android:id="@+id/order_status"
+                                    android:fontFamily="@font/railway_regular"
+                                    android:textColor="@color/cart_green_color1"
+                                    style="@style/TextAppearance.AppCompat.Body2"
+                                    android:textSize="12dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                </TextView>
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:fontFamily="@font/railway_regular"
+                android:textSize="16dp"
+                android:layout_marginLeft="20dp"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:textAllCaps="true"
+                android:text="Bill Details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+
+            <LinearLayout
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:id="@+id/recycle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:background="@color/light_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"></View>
+
+                <LinearLayout
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="100dp"
+                    android:layout_marginTop="10dp"
+
+                    android:orientation="vertical"
+                    android:minHeight="100dp"
+                    android:background="@color/white"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp">
+
+                        <TextView
+                            android:fontFamily="@font/railway_regular"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:text="Delivery Fee"
+                            android:textSize="12sp"
+                            android:textStyle="normal"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+
+
+                        <TextView
+                            android:fontFamily="@font/railway_regular"
+                            android:id="@+id/deliver_charge"
+                            android:textSize="12sp"
+
+                            android:textColor="@color/black"
+                            android:paddingRight="15dp"
+                            android:gravity="center|right"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_marginTop="5dp"
+                        android:background="@color/light_grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"></View>
+
+
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp">
+
+                        <TextView
+                            android:fontFamily="@font/railway_regular"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:text="Taxes and Charges"
+                            android:textSize="12sp"
+                            android:textStyle="normal"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+
+
+                        <TextView
+                            android:fontFamily="@font/railway_regular"
+                            android:id="@+id/tax_charges"
+                            android:textSize="12sp"
+
+                            android:textColor="@color/black"
+                            android:paddingRight="15dp"
+                            android:gravity="center|right"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_marginTop="5dp"
+                        android:background="@color/light_grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"></View>
+
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp">
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Body2"
+                            android:fontFamily="@font/raleway_bold"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:text="To Pay"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Body2"
+
+                            android:fontFamily="@font/railway_regular"
+                            android:textSize="14sp"
+                            android:id="@+id/pay_to"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:paddingRight="15dp"
+                            android:gravity="center|right"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -42,10 +42,6 @@ public class volley_for_get_category
                     public void onResponse(String response)
                     {
 
-                        if (progressBar.isShown())
-                        {
-                            progressBar.setVisibility(View.GONE);
-                        }
 
                         // response
                         Log.e("Response", response);
@@ -76,8 +72,15 @@ public class volley_for_get_category
                                         cat_list.add(cat_list_hash);
                                     }
 
+                                    if (progressBar.isShown())
+                                    {
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+
+
                                     Intent in=new Intent(context,Home_Screen.class);
                                     in.putExtra("All_cat_list",cat_list);
+                                    in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     context.startActivity(in);
 
                                 }

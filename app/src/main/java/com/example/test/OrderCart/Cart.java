@@ -65,7 +65,7 @@ public class Cart extends AppCompatActivity {
     TextView total_amout_of_cart,pay_to;
     String total_amount;
     LinearLayout bottom_sheet;
-    LinearLayout order_now;
+    LinearLayout order_now,linear_visible;
    TextView deliver_charge,tax_charges;
    Toolbar toolbar;
     @Override
@@ -113,6 +113,7 @@ public class Cart extends AppCompatActivity {
         pay_to = (TextView)findViewById(R.id.pay_to);
         bottom_sheet = (LinearLayout)findViewById(R.id.bottom_sheet);
         order_now = (LinearLayout)findViewById(R.id.order_now);
+        linear_visible = (LinearLayout)findViewById(R.id.linear_visible);
 
         order_now.setOnClickListener(new View.OnClickListener()
         {
@@ -122,8 +123,10 @@ public class Cart extends AppCompatActivity {
             //  Intent intent=new Intent(Cart.this, Add_address_before_payment.class);
              // startActivity(intent);
 
+                linear_visible.setVisibility(View.GONE);
+
                 Check_address check_address = new Check_address();
-                check_address.get_the_address(Cart.this,userDetails.getId(),mShimmerViewContainer,total_amount);
+                check_address.get_the_address(Cart.this,userDetails.getId(),mShimmerViewContainer,total_amount,linear_visible);
 
 
             }

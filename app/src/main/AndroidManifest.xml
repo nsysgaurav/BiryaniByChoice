@@ -14,13 +14,16 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/BiryaniByChoice"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:largeHeap="true"
         tools:replace="android:label">
-        <activity android:name=".activity.Payment_Success_Activity"></activity>
+        <activity android:name=".activity.Payment_Process_Activity"></activity>
+        <activity android:name=".activity.Order_Details_Tracking_Activity" />
+        <activity android:name=".activity.Order_history_Activity" />
+        <activity android:name=".activity.Payment_Success_Activity" />
         <activity android:name=".activity.Order_Summary_Activity" />
         <activity android:name=".activity.My_Adrress" />
         <activity android:name=".activity.Add_new_Address_Activity" />
@@ -47,12 +50,19 @@
         <activity android:name=".activity.UserProfile" />
         <activity android:name=".ItemDetails.ItemDetails" />
         <activity android:name=".activity.FlashScreen">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".Back_Ground_Services.Job_intent_Service_for_update_the_cart_data"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
     </application>
 
 </manifest>

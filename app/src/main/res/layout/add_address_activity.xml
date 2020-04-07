@@ -21,7 +21,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?actionBarSize"
         >
 
         <LinearLayout
@@ -57,9 +56,9 @@
 
 
                     <androidx.cardview.widget.CardView
+                        android:layout_marginTop="10dp"
                         app:cardElevation="1dp"
                         app:cardCornerRadius="2dp"
-                        android:layout_margin="10dp"
                         android:layout_width="fill_parent"
                         android:layout_height="50dp">
 
@@ -88,6 +87,7 @@
 
 
                     <TextView
+                        android:fontFamily="@font/railway_regular"
                         android:text="Tap to auto fill the address fields."
                         android:gravity="center"
                         android:textSize="12dp"
@@ -118,7 +118,7 @@
                             android:layout_height="wrap_content">
 
                             <EditText
-
+android:textAllCaps="true"
                                 android:singleLine="true"
                                 android:imeOptions="actionNext"
                                 android:textSize="14sp"
@@ -141,6 +141,7 @@
                                 android:id="@+id/road_name"
                                 android:singleLine="true"
                                 android:imeOptions="actionNext"
+                                android:textAllCaps="true"
 
                                 android:textSize="14sp"
                                 android:fontFamily="@font/raleway_bold"
@@ -159,6 +160,8 @@
                             android:layout_height="wrap_content">
 
                             <EditText
+                                android:textAllCaps="true"
+
                                 android:id="@+id/land_mark"
 
                                 android:singleLine="true"
@@ -190,6 +193,8 @@
                                 android:layout_height="45dp">
 
                                 <androidx.appcompat.widget.AppCompatSpinner
+                                    android:background="@drawable/spinner"
+
                                     android:id="@+id/city"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -256,6 +261,8 @@
                                 android:layout_height="wrap_content">
 
                                 <EditText
+                                    android:textAllCaps="true"
+
                                     android:id="@+id/name"
                                     android:singleLine="true"
                                     android:imeOptions="actionNext"
@@ -278,6 +285,8 @@
                                 android:layout_height="wrap_content">
 
                                 <EditText
+                                    android:textAllCaps="true"
+
                                     android:id="@+id/last_name"
                                     android:singleLine="true"
                                     android:imeOptions="actionNext"

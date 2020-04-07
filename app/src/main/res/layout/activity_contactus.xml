@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.Contactus"
-    android:background="@drawable/carddd">
+    tools:context=".activity.Contactus">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/contactToolbar"
@@ -32,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email: live@nsys.in"
+            android:text="Email: biryanibychice@gmail.com"
             android:textSize="20sp"
             android:drawableLeft="@drawable/ic_email_black_24dp"
             android:drawablePadding="10sp"

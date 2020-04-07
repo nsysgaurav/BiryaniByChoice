@@ -8,7 +8,7 @@
     <color name="colorPrimaryDark2">#E0B043</color>
     <color name="placeholder_bg">#dddddd</color>
     <color name="colorAccent">#A0A6A8</color>
-    <color name="toolbarColor">#222222</color>
+    <color name="toolbarColor">#fff</color>
     <color name="greencolor"> #4caf50</color>
     <color name="promo">#FF8F00</color>
     <color name="cart_green_color1">#7BC242</color>

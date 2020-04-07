@@ -1,9 +1,11 @@
 package com.example.test.Internet_connection;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -11,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.test.OrderCart.Cart;
 import com.example.test.ViewHolder.Addresss_adapter;
 import com.example.test.activity.Add_address_before_payment;
 import com.example.test.activity.My_Adrress;
@@ -30,10 +33,14 @@ public class Check_address
     HashMap<String,String> address_hashMap;
     ArrayList<HashMap<String,String>> hashMapArrayList=new ArrayList<>();
 
+    LinearLayout linear_visible;
 
-    public void  get_the_address(final Context context, String user_id, final ShimmerFrameLayout mShimmerViewContainer, final String total_amount)
+
+    public void  get_the_address(final Context context, String user_id, final ShimmerFrameLayout mShimmerViewContainer, final String total_amount, final LinearLayout linear_visible)
     {
         mShimmerViewContainer.setVisibility(View.VISIBLE);
+        linear_visible.setVisibility(View.GONE);
+
         HashMap<String,String> hashMap=new HashMap<>();
         hashMap.put("nsyskey","082057a4d249514389bb90c6d50ecf23");
         hashMap.put("uid",user_id);
@@ -104,26 +111,37 @@ public class Check_address
 
                                         if(hashMapArrayList.isEmpty())
                                         {
-                                            Intent intent=new Intent(context, Add_address_before_payment.class);
+
+                                            Intent intent = new Intent(context, Add_address_before_payment.class);
                                             intent.putExtra("total_amount",total_amount);
                                             context.startActivity(intent);
+                                            ((Activity) context).finish();
+
+
+                                            //  linear_visible.setVisibility(View.VISIBLE);
 
                                         }
                                         else
                                         {
+
                                             Intent intent=new Intent(context, Order_Summary_Activity.class);
                                             intent.putExtra("Address_list",hashMapArrayList);
                                             intent.putExtra("total_amount",total_amount);
                                             context.startActivity(intent);
+                                            ((Activity) context).finish();
+                                          //  linear_visible.setVisibility(View.VISIBLE);
                                         }
 
                                     }
 
                                     else
                                     {
+
                                          Intent intent=new Intent(context, Add_address_before_payment.class);
-                                        intent.putExtra("total_amount",total_amount);
+                                         intent.putExtra("total_amount",total_amount);
                                          context.startActivity(intent);
+                                        ((Activity) context).finish();
+                                      //   linear_visible.setVisibility(View.VISIBLE);
 
                                     }
                                 }
@@ -142,6 +160,7 @@ public class Check_address
                 {
                     mShimmerViewContainer.stopShimmerAnimation();
                     mShimmerViewContainer.setVisibility(View.GONE);
+                    linear_visible.setVisibility(View.VISIBLE);
 
                     Log.e("error",error.toString());
                 }

@@ -115,7 +115,7 @@ public class Adapter_for_product_gride extends RecyclerView.Adapter<Adapter_for_
                 i.putExtra("name",name);
                 i.putExtra("desc",description);
                 i.putExtra("price",price);
-                context.startActivity(i);
+               context.startActivity(i);
             }
         });
 
@@ -143,7 +143,12 @@ public class Adapter_for_product_gride extends RecyclerView.Adapter<Adapter_for_
                         {
                             String amount =  data_base.get_the_total_amount();
                             String quantity = data_base. get_the_total_quantity();
-                            cart_amout.setText("₹"+amount);
+
+                            if(amount!=null)
+                            {
+                                cart_amout.setText("₹"+amount);
+                            }
+
                             if(quantity!=null)
                             {
                                 items_total.setText(""+quantity+" Item");
@@ -215,9 +220,6 @@ public class Adapter_for_product_gride extends RecyclerView.Adapter<Adapter_for_
                             holder.add_btn.setVisibility(View.VISIBLE);
                             holder.linearLayout_btn.setVisibility(View.VISIBLE);
                             holder.linearLayout.setVisibility(View.INVISIBLE);
-
-
-
                                 String amount =  data_base.get_the_total_amount();
                                 String quantity = data_base. get_the_total_quantity();
                                 cart_amout.setText("₹"+amount);

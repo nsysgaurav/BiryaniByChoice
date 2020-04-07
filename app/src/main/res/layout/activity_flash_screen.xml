@@ -11,10 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_below="@id/logo"
-        android:elevation="4sp"
         android:layout_centerVertical="true"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:layout_below="@+id/logo"/>
 
 
     <ImageView

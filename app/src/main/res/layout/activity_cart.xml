@@ -62,8 +62,14 @@
 
 
             <LinearLayout
-                android:background="@color/white"
+                android:id="@+id/linear_visible"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+
+            <LinearLayout
+                android:background="@color/white"
                 android:weightSum="4"
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
@@ -387,7 +393,7 @@
 
 
 
-
+            </LinearLayout>
 
         </LinearLayout>
 

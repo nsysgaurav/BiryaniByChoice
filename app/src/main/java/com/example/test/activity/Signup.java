@@ -32,13 +32,14 @@ import java.util.Map;
 
 public class Signup extends AppCompatActivity {
 
-    TextView username, password, otp;
+    TextView username, password, otp,validation;
     Button signupBtn;
 
     TextView go_to_sign_in;
     EditText enter_mob;
     Button login_btn;
     LinearLayout clear_button;
+    LinearLayout bottom_sheet;
 
 
     @Override
@@ -77,7 +78,7 @@ public class Signup extends AppCompatActivity {
                 } else if (utility.isOnline(Signup.this) == false) {
                     Toast.makeText(Signup.this, "Please check your internet connection!", Toast.LENGTH_LONG).show();
                 } else {
-
+                    login_btn.setEnabled(false);
 
                     register_the_user(mobile_number);
 
@@ -96,6 +97,10 @@ public class Signup extends AppCompatActivity {
         enter_mob = (EditText) findViewById(R.id.enter_mob);
         login_btn = (Button) findViewById(R.id.login_btn);
         clear_button=(LinearLayout)findViewById(R.id.clear_button);
+        validation = (TextView) findViewById(R.id.validation);
+        bottom_sheet = (LinearLayout)findViewById(R.id.bottom_sheet);
+        bottom_sheet.setVisibility(View.GONE);
+
 
         clear_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,19 +147,29 @@ public class Signup extends AppCompatActivity {
                                 }
                                 else if(status.equalsIgnoreCase("error"))
                                 {
+                                    login_btn.setEnabled(true);
 
-                    Toast.makeText(Signup.this,object.getString("msg"),Toast.LENGTH_LONG).show();
+                                    bottom_sheet.setVisibility(View.VISIBLE);
+
+                                    validation.setText(object.getString("msg"));
+
 
                                 }
                                 else
                                 {
-                                    Toast.makeText(Signup.this,"Kindly try after some time!",Toast.LENGTH_LONG).show();
+                                    login_btn.setEnabled(true);
+                                    bottom_sheet.setVisibility(View.VISIBLE);
+
+                                    validation.setText("Kindly try after some time!");
+
+                              //      Toast.makeText(Signup.this,"Kindly try after some time!",Toast.LENGTH_LONG).show();
 
                                 }
 
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                login_btn.setEnabled(true);
                             }
                         } else {
 
@@ -165,7 +180,7 @@ public class Signup extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-
+                        login_btn.setEnabled(true);
                     }
                 }
         ) {

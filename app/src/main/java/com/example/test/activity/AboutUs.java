@@ -24,6 +24,7 @@ import mehdi.sakout.aboutpage.Element;
 public class AboutUs extends AppCompatActivity {
 
     Toolbar toolbar;
+    String desc;
     public static WebView webView;
     public static TextView textView;
 
@@ -34,6 +35,7 @@ public class AboutUs extends AppCompatActivity {
 
         toolbar=findViewById(R.id.aboutusToolbar);
 
+        desc = "Desc under construction please have patience for the good Desc....";
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
 
@@ -51,6 +53,7 @@ public class AboutUs extends AppCompatActivity {
                 .isRTL(false)
                 .setImage(R.drawable.finallogo)
                 .addItem(new Element().setTitle("Version 1.0"))
+                .setDescription(desc)
                 .addItem(adselement)
                 .addGroup("Contact with us ")
                 .addEmail("nsyshospitality@gmail.com")
@@ -66,7 +69,7 @@ public class AboutUs extends AppCompatActivity {
         Element Copyright = new Element();
         final String copyright =String.format("Copyright %d by BiryaniByChoice", Calendar.getInstance().get(Calendar.YEAR));
         Copyright.setTitle(copyright);
-        Copyright.setIcon(R.mipmap.ic_launcher);
+     //   Copyright.setIcon(R.mipmap.ic_launcher);
         Copyright.setGravity(Gravity.CENTER);
         Copyright.setOnClickListener(new View.OnClickListener() {
             @Override

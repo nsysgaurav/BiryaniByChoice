@@ -31,12 +31,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Login extends AppCompatActivity {
-    TextView send_otp;
+    TextView send_otp,validation;
     Button login_btn;
     int counter;
     EditText enter_otp, enter_mob;
     CountDownTimer countDownTimer;
-
+LinearLayout bottom_sheet;
     @Override
     public void onBackPressed() {
         // super.onBackPressed();
@@ -75,6 +75,10 @@ public class Login extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         enter_mob = (EditText) findViewById(R.id.enter_mob);
         clear_button=(LinearLayout)findViewById(R.id.clear_button);
+        validation = (TextView) findViewById(R.id.validation);
+        bottom_sheet = (LinearLayout)findViewById(R.id.bottom_sheet);
+        bottom_sheet.setVisibility(View.GONE);
+
 
         //added  by Lalit kumar on 20.march.2020 at 16:52 PM
 
@@ -85,6 +89,7 @@ public class Login extends AppCompatActivity {
                     enter_mob.requestFocus();
                     enter_mob.setError("Please enter your mobile Number");
                 } else {
+                    login_button.setEnabled(false);
                     login_user(enter_mob.getText().toString().trim());
                 }
 
@@ -134,9 +139,13 @@ public class Login extends AppCompatActivity {
                                     startActivity(in);
                                     finish();
 
-                                } else {
+                                }
+                                else
+                                    {
+                                        login_button.setEnabled(true);
+                                        bottom_sheet.setVisibility(View.VISIBLE);
 
-
+                                        validation.setText(object.getString("msg"));
                                 }
 
 
@@ -144,6 +153,7 @@ public class Login extends AppCompatActivity {
                                 e.printStackTrace();
                                 if (progressBar.isShown()) {
                                     progressBar.setVisibility(View.GONE);
+                                    login_button.setEnabled(true);
                                 }
                             }
                         } else {
@@ -156,6 +166,7 @@ public class Login extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         if (progressBar.isShown()) {
                             progressBar.setVisibility(View.GONE);
+                            login_button.setEnabled(true);
                         }
                         // error
 

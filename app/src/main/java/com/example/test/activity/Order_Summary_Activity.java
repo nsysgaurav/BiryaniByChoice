@@ -71,7 +71,18 @@ public class Order_Summary_Activity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onBackPressed()
+    {
+       // super.onBackPressed();
+
+        Intent in = new Intent(Order_Summary_Activity.this,Cart.class);
+        startActivity(in);
+        finish();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order__summary);
         name = findViewById(R.id.name);
@@ -80,11 +91,8 @@ public class Order_Summary_Activity extends AppCompatActivity {
         phone_number = findViewById(R.id.phone_number);
         total_amout_of_cart=(TextView)findViewById(R.id.total_amout_of_cart);
         pay_to = (TextView)findViewById(R.id.pay_to);
-
-
-        deliver_charge=findViewById(R.id.deliver_charge);
+        deliver_charge =findViewById(R.id.deliver_charge);
         tax_charges=findViewById(R.id.tax_charges);
-
         type = findViewById(R.id.type);
         order_now=findViewById(R.id.order_now);
         total_amount_card=findViewById(R.id.total_amount_card);
@@ -93,7 +101,7 @@ public class Order_Summary_Activity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         data_base = new DatabaseHelper(this);
-        sessionManager=new SessionManager(Order_Summary_Activity.this);
+        sessionManager = new SessionManager(Order_Summary_Activity.this);
 
         in = getIntent();
         if (in != null)
@@ -124,7 +132,7 @@ public class Order_Summary_Activity extends AppCompatActivity {
 
                 total_amout_of_cart.setText("₹"+total_amount);
 
-              get_the_delivery_charges(Order_Summary_Activity.this,sessionManager.getUserSession().getId(),total_amount,total_amount_card);
+                get_the_delivery_charges(Order_Summary_Activity.this,sessionManager.getUserSession().getId(),total_amount,total_amount_card);
 
 
                 ArrayList<HashMap<String,String>> cart_data =  data_base.get_the_cart_data_with_product_name();
@@ -152,9 +160,16 @@ public class Order_Summary_Activity extends AppCompatActivity {
             public void onClick(View v)
             {
 
-                order_now.setVisibility(View.GONE);
+               // order_now.setVisibility(View.GONE);
 
-                order_now_Service(sessionManager.getUserSession().getId(),id,id,total_amount);
+                Intent in=new Intent(Order_Summary_Activity.this,Payment_Process_Activity.class);
+                in.putExtra("shipping_address_id",id);
+                in.putExtra("Billig_address_id",id);
+                in.putExtra("total_amount",total_amount);
+                startActivity(in);
+                finish();
+
+             //   order_now_Service(sessionManager.getUserSession().getId(),id,id,total_amount);
 
             }
         });
